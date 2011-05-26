@@ -1,0 +1,113 @@
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\background.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\NormalButton.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\SelectButton.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\MainTitle.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\MyFont.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\maintheme.xnb
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\maintheme.wma
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\background.jpg
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\NormalButton.png
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\SelectButton.png
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\MainTitle.png
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\MyFont.spritefont
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\Content\maintheme.mp3
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\MyFirstApp.exe
+D:\MyFirstApp\MyFirstApp\bin\x86\Debug\MyFirstApp.pdb
+D:\MyFirstApp\MyFirstApp\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\MyFirstApp\MyFirstApp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\MyFirstApp\MyFirstApp\obj\x86\Debug\MyFirstApp.exe
+D:\MyFirstApp\MyFirstApp\obj\x86\Debug\MyFirstApp.pdb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\background.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\NormalButton.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\SelectButton.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\MainTitle.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Maingame\Tiles.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Maingame\background.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\08.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\09.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\10.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\11.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\12.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\13.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\14.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\15.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Appear\16.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Damaged\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Damaged\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Damaged\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Damaged\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Damaged\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Disappear\08.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Fire\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\08.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\09.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Jump\10.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Normal\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Normal\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Normal\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Normal\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Normal\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Run\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\00.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\01.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\02.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\03.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\04.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\05.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\06.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\X\Running\07.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Font\MenuFont.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Font\Instruction.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Font\GameFont.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\maintheme.xnb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\maintheme.wma
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\background.jpg
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\NormalButton.png
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\SelectButton.png
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Menu\MainTitle.png
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Font\MenuFont.spritefont
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage1.txt
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\MyFirstApp.exe
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\bin\x86\Debug\MyFirstApp.pdb
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\MyFirstApp.exe
+D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\MyFirstApp.pdb
