@@ -25,11 +25,13 @@ namespace MyFirstApp
         private Boolean bMute;
 
         public static bool bMainGame;
+        public static bool bLoadGame;
         public static bool bExit;
         public static int iWidth;
         public static int iHeight;
 
         private Menu mainMenu;
+        private GameLoading gameLoading;
 
         private List<VisibleGameEntity> _gameEntity;
         private List<Character> _character;
@@ -56,14 +58,16 @@ namespace MyFirstApp
         }
         protected override void LoadContent()
         {            
-            // Create a new SpriteBatch, which can be used to draw textures.
+            //Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             iWidth = 800;
-            iHeight = 600;
-            // TODO: use this.Content to load your game content here
+            iHeight = 600;            
             //Menu
             mainMenu = new Menu();
             mainMenu.Init(this.Content);
+            //GameLoading
+            gameLoading = new GameLoading();
+            gameLoading.Init(this.Content);
             //Resolution
             graphics.PreferredBackBufferWidth = iWidth;
             graphics.PreferredBackBufferHeight = iHeight;
@@ -78,6 +82,7 @@ namespace MyFirstApp
             bMute = false;
             //Main game
             bMainGame = false;
+            bLoadGame = true;
             bExit = false;
 
             characterManager = new CharacterManager();
@@ -125,13 +130,13 @@ namespace MyFirstApp
                 this.Exit();
 
             //Chuong trinh khong duoc focus
-            if (!this.IsActive)
-            {
-                MediaPlayer.Pause();
-                return;
-            }
-            else
-                MediaPlayer.Resume();
+            //if (!this.IsActive)
+            //{
+            //    MediaPlayer.Pause();
+            //    return;
+            //}
+            //else
+            //    MediaPlayer.Resume();
             //Choi nhac neu nhac bi ngung
             if (bMute == false && MediaPlayer.State == MediaState.Stopped)
             {
@@ -150,6 +155,11 @@ namespace MyFirstApp
                     c.UpdateMouse();
                 }
             }
+            else if (bLoadGame)
+            {                
+                gameLoading.UpdateKeyboard(ref bMute, mainTheme);
+                gameLoading.UpdateMouse(ref bMute, mainTheme);
+            }
             else
             {
                 mainMenu.UpdateKeyboard(ref bMute, mainTheme);
@@ -166,12 +176,7 @@ namespace MyFirstApp
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            if (!bMainGame)
-            {
-                mainMenu.ShowBackground(this.Content, spriteBatch);
-                mainMenu.ShowMenu(gameTime, spriteBatch);
-            }
-            else
+            if(bMainGame)
             {
                 //for (int i = 0; i < _nVisibleGameEntity; i++)
                 //    _gameEntity[i].Draw(gameTime, spriteBatch);
@@ -181,8 +186,18 @@ namespace MyFirstApp
                 }
                 foreach (Character c in _character)
                 {
-                    c.Draw(gameTime, spriteBatch);                    
+                    c.Draw(gameTime, spriteBatch);
                 }
+            }
+            else if (bLoadGame)
+            {
+                gameLoading.ShowBackground(this.Content, spriteBatch);
+                gameLoading.ShowMenu(gameTime, spriteBatch);
+            }
+            else
+            {
+                mainMenu.ShowBackground(this.Content, spriteBatch);
+                mainMenu.ShowMenu(gameTime, spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);

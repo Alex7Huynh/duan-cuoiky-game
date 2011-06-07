@@ -1,4 +1,3 @@
-Content\Menu\background.xnb
 Content\Menu\NormalButton.xnb
 Content\Menu\SelectButton.xnb
 Content\Menu\MainTitle.xnb
@@ -79,8 +78,11 @@ Content\Font\MenuFont.xnb
 Content\Font\Instruction.xnb
 Content\Font\GameFont.xnb
 Content\maintheme.xnb
+Content\Maingame\Loadgame.xnb
+Content\Menu\background01.xnb
+Content\Menu\background02.xnb
 Content\maintheme.wma
-Content\Menu\background.jpg
+Content\Menu\background01.jpg
 Content\Menu\NormalButton.png
 Content\Menu\SelectButton.png
 Content\Menu\MainTitle.png
