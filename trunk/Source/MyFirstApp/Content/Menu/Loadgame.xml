@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Loadgame>
-	<map id = "1" name="Stage1.txt" play ="false"/>
-	<map id = "2" name="Stage2.txt" play ="false"/>
-	<map id = "3" name="Stage3.txt" play ="false"/>
-	<map id = "4" name="Stage4.txt" play ="false"/>
-	<map id = "5" name="Stage5.txt" play ="false"/>
-	<map id = "6" name="Stage6.txt" play ="false"/>
-	<map id = "7" name="Stage7.txt" play ="false"/>
-	<map id = "8" name="Stage8.txt" play ="false"/>
+<Loadgame score="100">
+	<map id = "1" name="Stage1.txt" unlock ="1"/>
+	<map id = "2" name="Stage2.txt" unlock ="0"/>
+	<map id = "3" name="Stage3.txt" unlock ="0"/>
+	<map id = "4" name="Stage4.txt" unlock ="0"/>
+	<map id = "5" name="Stage5.txt" unlock ="0"/>
+	<map id = "6" name="Stage6.txt" unlock ="0"/>
+	<map id = "7" name="Stage7.txt" unlock ="0"/>
+	<map id = "8" name="Stage8.txt" unlock ="0"/>
 </Loadgame>

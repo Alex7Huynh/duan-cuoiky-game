@@ -12,20 +12,20 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace MyFirstApp
+namespace MyFirstApp 
 {
-    public class Menu : Dialog
+    class GameLoading : Dialog
     {
         #region 1 - Các thuộc tính
-        int curMenuIdx = 0;        
+        int curMenuIdx;
         int _MenuWidth = 150;
         int _MenuHeight = 50;
         private Texture2D[] ttMenu, ttSelectedMenu;
-        private string[] _MenuText = { "New game", "Load game", "Option", "Exit" };
-        private string[] _Guru = { "Choose this to move a \r\nbackground around \r\nthe screen", "Load a stage you unlocked ", "Mute", "Exit" };
-        private string _authors;
+        private string[] _MenuText;// = { "Stage 1", "Stage 2", "Stage 3", "Stage 4" };
+        //private string[] _Guru = { "Choose this to move a \r\nbackground around \r\nthe screen", "Not yet implemented ", "Mute", "Exit" };
+        //private string _authors;
         SpriteFont menuFont;
-        SpriteFont instructionFont;        
+        //SpriteFont instructionFont;        
         private KeyboardState oldKeyboardState;        
         private MouseState oldMouseState;
         #endregion
@@ -55,38 +55,52 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public void Init(ContentManager Content)
         {
-            _authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";
-            ttMenu = new Texture2D[1] { Content.Load<Texture2D>(@"Menu\NormalButton") };
+            //_authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";
+            _MenuText = new string[8];
+            for (int i = 0; i < _MenuText.Length; ++i)
+                _MenuText[i] = "Stage" + (i + 1).ToString();
+            curMenuIdx = 0;
+            ttMenu = new Texture2D[1] { Content.Load<Texture2D>(@"Menu\NormalButton") };            
             ttSelectedMenu = new Texture2D[1] { Content.Load<Texture2D>(@"Menu\SelectButton") };
+
+            _sprite = new MySprite[8];
+            _sprite[0] = new MySprite(ttSelectedMenu, 10, 100, _MenuWidth, _MenuHeight);
+            for (int i = 1; i < 8; ++i)
+            {
+                _sprite[i] = new MySprite(ttMenu, 10, i * 55 + 100, _MenuWidth, _MenuHeight);
+            }
             
-            _sprite = new MySprite[4];
-            _sprite[0] = new MySprite(ttSelectedMenu, 10, 200, _MenuWidth, _MenuHeight);
-            _sprite[1] = new MySprite(ttMenu, 10, 300, _MenuWidth, _MenuHeight);
-            _sprite[2] = new MySprite(ttMenu, 10, 400, _MenuWidth, _MenuHeight);
-            _sprite[3] = new MySprite(ttMenu, 10, 500, _MenuWidth, _MenuHeight);
+            //_sprite[1] = new MySprite(ttMenu, 10, 300, _MenuWidth, _MenuHeight);
+            //_sprite[2] = new MySprite(ttMenu, 10, 400, _MenuWidth, _MenuHeight);
+            //_sprite[3] = new MySprite(ttMenu, 10, 500, _MenuWidth, _MenuHeight);
             menuFont = Content.Load<SpriteFont>(@"Font\MenuFont");
-            instructionFont = Content.Load<SpriteFont>(@"Font\Instruction");
+            //instructionFont = Content.Load<SpriteFont>(@"Font\Instruction");
         }
         public void ShowMenu(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (MySprite sprite in _sprite)
                 sprite.Draw(gameTime, spriteBatch, Color.White, false);
 
-            spriteBatch.DrawString(menuFont, _MenuText[0], new Vector2(20, 205), Color.White);
-            spriteBatch.DrawString(menuFont, _MenuText[1], new Vector2(20, 305), Color.White);
-            spriteBatch.DrawString(menuFont, _MenuText[2], new Vector2(40, 405), Color.White);
-            spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(60, 505), Color.White);
+            for (int i = 0; i < 8; ++i)
+            {
+                spriteBatch.DrawString(menuFont, _MenuText[i], new Vector2(40, i*55+105), Color.White);
 
-            spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);
-            spriteBatch.DrawString(instructionFont, _authors, new Vector2(Game1.iWidth - 270, Game1.iHeight - 50), Color.Yellow);
+            }
+            //spriteBatch.DrawString(menuFont, _MenuText[0], new Vector2(20, 205), Color.White);
+            //spriteBatch.DrawString(menuFont, _MenuText[1], new Vector2(20, 305), Color.White);
+            //spriteBatch.DrawString(menuFont, _MenuText[2], new Vector2(20, 405), Color.White);
+            //spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(20, 505), Color.White);
+
+            //spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);
+            //spriteBatch.DrawString(instructionFont, _authors, new Vector2(Game1.iWidth - 270, Game1.iHeight - 50), Color.Yellow);
         }
         public void ShowBackground(ContentManager Content, SpriteBatch spriteBatch)
         {
-            Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background01");
-            Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
+            Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background02");
+            //Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
             spriteBatch.Draw(ttBackground, new Rectangle(0, 0, Game1.iWidth, Game1.iHeight), Color.White);
-            spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);            
-        }        
+            //spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
+        }
         public void UpdateKeyboard(ref bool bMute, Song mainTheme)
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
@@ -141,44 +155,27 @@ namespace MyFirstApp
             {
                 _sprite[curMenuIdx].texture2d = ttSelectedMenu;
             }
-            ProcessMenu(ref bMute, mainTheme);
+            //ProcessMenu(ref bMute, mainTheme);
             oldMouseState = newMouseState;
         }
         public void ProcessMenu(ref bool bMute, Song mainTheme)
         {
             switch (curMenuIdx)
             {
-                case 0:
-                    Game1.bMainGame = true;
-                    Game1.bLoadGame = false;
+                case 0:                    
                     break;
 
-                case 1:
-                    Game1.bMainGame = false;
-                    Game1.bLoadGame = true;
+                case 1:                    
                     break;
-                case 2:
-                    if (MediaPlayer.State == MediaState.Playing)
-                    {
-                        MediaPlayer.Stop();
-                        bMute = true;
-                    }
-                    else if (MediaPlayer.State == MediaState.Stopped)
-                    {
-                        MediaPlayer.Play(mainTheme);
-                        bMute = false;
-                    }
+                case 2:                    
                     break;
-                case 3:
-                    {
-                        Game1.bExit = true;
-                    }
+                case 3:                    
                     break;
                 default:
                     break;
             }
         }
-        private bool TestKeypress(Keys theKey)
+      private bool TestKeypress(Keys theKey)
         {
             if (Keyboard.GetState().IsKeyUp(theKey)
                 && oldKeyboardState.IsKeyDown(theKey))

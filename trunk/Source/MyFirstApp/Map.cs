@@ -16,7 +16,7 @@ namespace MyFirstApp
 {
     public class Map : VisibleGameEntity
     {
-        #region 1 - Các thuộc tính
+        #region 1 - Các thuộc tính        
         private int _pixelMove;
         private Rectangle _rec;
         private int _DelayTime;
@@ -26,6 +26,8 @@ namespace MyFirstApp
         private int _mapCols;
         private Texture2D _background;
         public static int CellSize;
+        public static string StageName;
+        public static bool Unlock;
         #endregion
 
         #region 2 - Các đặc tính
