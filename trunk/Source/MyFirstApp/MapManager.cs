@@ -30,8 +30,8 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public override void InitPrototypes(ContentManager contentManager)
         {
-            _nprototype = 3;
-            _prototype = new Map[_nprototype]; // read information from configuration file(s)            
+            //_nprototype = 3;
+            //_prototype = new Map[_nprototype]; // read information from configuration file(s)            
         }
         #endregion
     }

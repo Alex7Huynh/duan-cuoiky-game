@@ -17,16 +17,16 @@ namespace MyFirstApp
     public class Menu : Dialog
     {
         #region 1 - Các thuộc tính
-        int curMenuIdx = 0;        
+        int curMenuIdx = 0;
         int _MenuWidth = 150;
         int _MenuHeight = 50;
         private Texture2D[] ttMenu, ttSelectedMenu;
         private string[] _MenuText = { "New game", "Load game", "Option", "Exit" };
-        private string[] _Guru = { "Choose this to move a \r\nbackground around \r\nthe screen", "Load a stage you unlocked ", "Mute", "Exit" };
+        private string[] _Guru = { "Play new game", "Load a stage you unlocked ", "Mute", "Exit" };
         private string _authors;
         SpriteFont menuFont;
         SpriteFont instructionFont;        
-        private KeyboardState oldKeyboardState;        
+        private KeyboardState oldKeyboardState;
         private MouseState oldMouseState;
         #endregion
 
@@ -78,14 +78,14 @@ namespace MyFirstApp
             spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(60, 505), Color.White);
 
             spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);
-            spriteBatch.DrawString(instructionFont, _authors, new Vector2(Game1.iWidth - 270, Game1.iHeight - 50), Color.Yellow);
+            spriteBatch.DrawString(instructionFont, _authors, new Vector2(GlobalSetting.GameWidth - 270, GlobalSetting.GameHeight - 50), Color.Yellow);
         }
         public void ShowBackground(ContentManager Content, SpriteBatch spriteBatch)
         {
             Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background01");
             Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
-            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, Game1.iWidth, Game1.iHeight), Color.White);
-            spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);            
+            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
+            spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
         }        
         public void UpdateKeyboard(ref bool bMute, Song mainTheme)
         {
