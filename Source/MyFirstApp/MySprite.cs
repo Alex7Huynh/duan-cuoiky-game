@@ -117,6 +117,8 @@ namespace MyFirstApp
                 _y += 5;*/
             if (_itexture2d < _ntexture2d - 1)
                 _itexture2d++;
+            else if (_itexture2d == _ntexture2d - 1)
+                _itexture2d = 0;
             //_itexture2d = (_itexture2d + 1) % _ntexture2d;
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, bool bFixSize)

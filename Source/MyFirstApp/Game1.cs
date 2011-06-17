@@ -27,20 +27,21 @@ namespace MyFirstApp
         public static bool bMainGame;
         public static bool bLoadGame;
         public static bool bExit;
-        public static int iWidth;
-        public static int iHeight;
+        //public static int iWidth;
+        //public static int iHeight;
 
         private Menu mainMenu;
         private GameLoading gameLoading;
 
-        private List<VisibleGameEntity> _gameEntity;
+        //private List<VisibleGameEntity> _gameEntity;
         private List<Character> _character;
-        private List<Map> _map;
+        //private List<Map> _map;
+        private Map _map;
         private CharacterManager characterManager;
-        private MapManager mapManager;        
+        //private MapManager mapManager;        
         private int _nCharacter;
-        private int _nMap;
-        private int _nVisibleGameEntity;
+        //private int _nMap;
+        //private int _nVisibleGameEntity;
 
         public Game1()
         {
@@ -59,30 +60,28 @@ namespace MyFirstApp
         protected override void LoadContent()
         {            
             //Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            iWidth = 800;
-            iHeight = 600;            
+            spriteBatch = new SpriteBatch(GraphicsDevice);            
             //Menu
             mainMenu = new Menu();
             mainMenu.Init(this.Content);
             //GameLoading
             gameLoading = new GameLoading();
             gameLoading.Init(this.Content);
-            //Resolution
-            graphics.PreferredBackBufferWidth = iWidth;
-            graphics.PreferredBackBufferHeight = iHeight;
+            //Resolution            
+            graphics.PreferredBackBufferWidth = GlobalSetting.GameWidth;
+            graphics.PreferredBackBufferHeight = GlobalSetting.GameHeight;
             graphics.ApplyChanges();
             //Font
             gameFont = Content.Load<SpriteFont>(@"Font\GameFont");
             //Mouse
             this.IsMouseVisible = true;
             //Sound
-            mainTheme = Content.Load<Song>("maintheme");
+            mainTheme = Content.Load<Song>(@"Sound\maintheme");
             MediaPlayer.Play(mainTheme);
             bMute = false;
             //Main game
             bMainGame = false;
-            bLoadGame = true;
+            bLoadGame = false;
             bExit = false;
 
             characterManager = new CharacterManager();
@@ -92,32 +91,33 @@ namespace MyFirstApp
             _character = new List<Character>();
 
             _character.Add(new Character());
-            _character[0] = (Character)characterManager.CreateObject(0);
+            _character[0] = (Character)characterManager.CreateObject(4);
             _character[0].X = 100;
             _character[0].Y = 100;
             //_character[0].nDelay = 5;
 
-            mapManager = new MapManager();
-            mapManager.InitPrototypes(this.Content);
+            //mapManager = new MapManager();
+            //mapManager.InitPrototypes(this.Content);
 
-            _nMap = 1;
-            _map = new List<Map>();
-            _map.Add(new Map());            
+            //_nMap = 1;
+            //_map = new List<Map>();
+            //_map.Add(new Map());
             
-            _map[0].Init(this.Content, 1, "Tiles");
-            _map[0].ReadMap(this.Content, "Stage8.txt", 25, 300);
-            _map[0].InitBackground(this.Content, "Background");
+            //_map[0].Init(this.Content, 1, "Tiles");
+            //_map[0].ReadMap(this.Content, "Stage10.txt", 25, 300);
+            //_map[0].InitBackground(this.Content, "Background");
+            _map = new Map();
+            _map.Init(this.Content, 1, "Tiles");
+            _map.ReadMap(this.Content, 10);
 
-            
+            //_nVisibleGameEntity = _nCharacter + _nMap;
 
-            _nVisibleGameEntity = _nCharacter + _nMap;
+            //_gameEntity = new List<VisibleGameEntity>();
+            //for (int i = 0; i < _nMap; i++)
+            //    _gameEntity.Add(_map[i]);
 
-            _gameEntity = new List<VisibleGameEntity>();
-            for (int i = 0; i < _nMap; i++)
-                _gameEntity.Add(_map[i]);
-
-            for (int i = 0; i < _nCharacter; i++)
-                _gameEntity.Add(_character[i]);
+            //for (int i = 0; i < _nCharacter; i++)
+            //    _gameEntity.Add(_character[i]);
         }
         protected override void UnloadContent()
         {
@@ -144,11 +144,14 @@ namespace MyFirstApp
             }
             if (bMainGame)
             {
-                foreach (Map m in _map)
-                {
-                    m.UpdateKeyboard(iWidth, iHeight);
-                    m.Update(gameTime);
-                }
+                //foreach (Map m in _map)
+                //{
+                //    m.UpdateKeyboard(iWidth, iHeight);
+                //    m.Update(gameTime);
+                //}
+                _map.UpdateKeyboard();
+                _map.Update(gameTime);
+
                 foreach (Character c in _character)
                 {
                     c.Update(gameTime);
@@ -156,9 +159,9 @@ namespace MyFirstApp
                 }
             }
             else if (bLoadGame)
-            {                
-                gameLoading.UpdateKeyboard(ref bMute, mainTheme);
-                gameLoading.UpdateMouse(ref bMute, mainTheme);
+            {
+                gameLoading.UpdateKeyboard(this.Content, ref _map);
+                gameLoading.UpdateMouse(this.Content, ref _map);
             }
             else
             {
@@ -180,10 +183,11 @@ namespace MyFirstApp
             {
                 //for (int i = 0; i < _nVisibleGameEntity; i++)
                 //    _gameEntity[i].Draw(gameTime, spriteBatch);
-                foreach (Map m in _map)
-                {
-                    m.Draw(gameTime, spriteBatch);
-                }
+                //foreach (Map m in _map)
+                //{
+                //    m.Draw(gameTime, spriteBatch);
+                //}
+                _map.Draw(gameTime, spriteBatch);
                 foreach (Character c in _character)
                 {
                     c.Draw(gameTime, spriteBatch);

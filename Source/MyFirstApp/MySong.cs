@@ -15,7 +15,7 @@ namespace MyFirstApp
 {
     public class MySong
     {
-        private Song mainTheme;
-        private Boolean bMute;
+        private Song _mainTheme;
+        private Boolean _mute;
     }
 }

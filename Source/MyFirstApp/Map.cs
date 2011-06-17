@@ -16,14 +16,12 @@ namespace MyFirstApp
 {
     public class Map : VisibleGameEntity
     {
-        #region 1 - Các thuộc tính        
+        #region 1 - Các thuộc tính
         private int _pixelMove;
         private Rectangle _rec;
         private int _DelayTime;
         private int _pixelMoved;
-        private char[,] _map;
-        private int _mapRows;
-        private int _mapCols;
+        private char[,] _map;        
         private Texture2D _background;
         public static int CellSize;
         public static string StageName;
@@ -62,7 +60,7 @@ namespace MyFirstApp
             _pixelMoved = 0;
             _pixelMove = 10;
             _DelayTime = 0;
-            _rec = new Rectangle(0, 0, Game1.iWidth, Game1.iHeight);            
+            _rec = new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight);            
             _nsprite = n;
             _sprite = new MySprite[_nsprite];
 
@@ -79,14 +77,13 @@ namespace MyFirstApp
 
             return true;
         }
-        public void ReadMap(ContentManager Content, string strTextFile, int rRows, int rCols)
+        public void ReadMap(ContentManager Content, int IDStage)
         {
-            _map = new char[rRows, rCols];
-            _mapRows = rRows;
-            _mapCols = rCols;
+            _map = new char[GlobalSetting.MapRows, GlobalSetting.MapCols];            
             System.IO.StreamReader file =
                 new System.IO.StreamReader(
-                    Content.RootDirectory + @"\Maingame\" + strTextFile);
+                    Content.RootDirectory + @"\Maingame\Stage\Stage" 
+                    + IDStage.ToString("00") + ".txt");
             string line = string.Empty;
             int i = 0;
             while ((line = file.ReadLine()) != null)
@@ -95,12 +92,14 @@ namespace MyFirstApp
                     _map[i, j] = line[j];
                 i++;
             }
+            InitBackground(Content, IDStage);
         }
-        public void InitBackground(ContentManager Content, string strResource)
+        public void InitBackground(ContentManager Content, int IDBackground)
         {
-            _background = Content.Load<Texture2D>(@"Maingame/" + strResource);
+            _background = Content.Load<Texture2D>(@"Maingame\Background\background" 
+                + IDBackground.ToString("00"));
         }
-        public void UpdateKeyboard(int rWidth, int rHeight)
+        public void UpdateKeyboard()
         {
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Right))
@@ -119,8 +118,8 @@ namespace MyFirstApp
             //Neu da den cuoi thi khong the di tiep
             if (_pixelMoved < 0)
                 _pixelMoved = 0;
-            if (_pixelMoved >= _mapCols - Math.Ceiling((float)Game1.iWidth/_sprite[0].Height))
-                _pixelMoved = _mapCols - (int)Math.Ceiling((float)Game1.iWidth / _sprite[0].Height);            
+            if (_pixelMoved >= GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth/_sprite[0].Height))
+                _pixelMoved = GlobalSetting.MapCols - (int)Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height);            
 
         }
         public override void Update(GameTime gameTime)
@@ -142,9 +141,9 @@ namespace MyFirstApp
             int j;
             
             int cellIndex = 0;            
-            int width = (int)Math.Ceiling((float)Game1.iWidth/(CellSize));
-            width = _mapCols < width ? _mapCols : width;
-            for (i = 0; i < _mapRows; ++i)
+            int width = (int)Math.Ceiling((float)GlobalSetting.GameWidth/(CellSize));
+            width = GlobalSetting.MapCols < width ? GlobalSetting.MapCols : width;
+            for (i = 0; i < GlobalSetting.MapRows; ++i)
                 for (j = 0; j < width; ++j)
                 {                    
                     if (_map[i, j + _pixelMoved] == '?')
@@ -161,6 +160,7 @@ namespace MyFirstApp
             if (_DelayTime++ < 300)
                 spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
                 + "\r\nPress Backspace to go back to main menu"
+                + "\r\nPress X to jump and Space to shoot"
                 + "\r\nClick mouse to teleport Megario",
                 new Vector2(20, 100), Color.Blue);
         }
