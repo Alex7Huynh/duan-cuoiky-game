@@ -88,8 +88,36 @@ Content\Maingame\Background\background10.xnb
 Content\Font\MenuFont.xnb
 Content\Font\Instruction.xnb
 Content\Font\GameFont.xnb
-Content\Sound\maintheme.xnb
-Content\Sound\maintheme.wma
+Content\Sound\mp3\01. Assassins of Kings.xnb
+Content\Sound\mp3\03. The Path of a Kingslayer.xnb
+Content\Sound\mp3\06. The Lone Survivor.xnb
+Content\Sound\mp3\09. Easier Said than Killed.xnb
+Content\Sound\mp3\10. A Watering Hole in the Harbor.xnb
+Content\Sound\mp3\12. Regicide.xnb
+Content\Sound\mp3\13. The Wild Hunt.xnb
+Content\Sound\mp3\15. For a Higher Cause.xnb
+Content\Sound\mp3\18. The Assassin Looms.xnb
+Content\Sound\mp3\21. Howl of the White Wolf.xnb
+Content\Sound\mp3\22. Sorceresses.xnb
+Content\Sound\mp3\land.xnb
+Content\Sound\mp3\Old Mario.xnb
+Content\Sound\wav\GameOver.xnb
+Content\Sound\wav\getcoin.xnb
+Content\Sound\wav\jump.xnb
+Content\Sound\wav\laser.xnb
+Content\Sound\mp3\01. Assassins of Kings.wma
+Content\Sound\mp3\03. The Path of a Kingslayer.wma
+Content\Sound\mp3\06. The Lone Survivor.wma
+Content\Sound\mp3\09. Easier Said than Killed.wma
+Content\Sound\mp3\10. A Watering Hole in the Harbor.wma
+Content\Sound\mp3\12. Regicide.wma
+Content\Sound\mp3\13. The Wild Hunt.wma
+Content\Sound\mp3\15. For a Higher Cause.wma
+Content\Sound\mp3\18. The Assassin Looms.wma
+Content\Sound\mp3\21. Howl of the White Wolf.wma
+Content\Sound\mp3\22. Sorceresses.wma
+Content\Sound\mp3\land.wma
+Content\Sound\mp3\Old Mario.wma
 Content\Menu\background01.jpg
 Content\Menu\NormalButton.png
 Content\Menu\SelectButton.png

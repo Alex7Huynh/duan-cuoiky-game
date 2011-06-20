@@ -76,13 +76,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\maintheme.mp3">
-      <Name>maintheme</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Font\Instruction.spritefont">
       <Name>Instruction</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -584,6 +577,107 @@
       <Name>Stage10</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sound\mp3\01. Assassins of Kings.mp3">
+      <Name>01. Assassins of Kings</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\03. The Path of a Kingslayer.mp3">
+      <Name>03. The Path of a Kingslayer</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\06. The Lone Survivor.mp3">
+      <Name>06. The Lone Survivor</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\09. Easier Said than Killed.mp3">
+      <Name>09. Easier Said than Killed</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\10. A Watering Hole in the Harbor.mp3">
+      <Name>10. A Watering Hole in the Harbor</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\12. Regicide.mp3">
+      <Name>12. Regicide</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\13. The Wild Hunt.mp3">
+      <Name>13. The Wild Hunt</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\15. For a Higher Cause.mp3">
+      <Name>15. For a Higher Cause</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\18. The Assassin Looms.mp3">
+      <Name>18. The Assassin Looms</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\21. Howl of the White Wolf.mp3">
+      <Name>21. Howl of the White Wolf</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\22. Sorceresses.mp3">
+      <Name>22. Sorceresses</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\land.mp3">
+      <Name>land</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\mp3\Old Mario.mp3">
+      <Name>Old Mario</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sound\wav\GameOver.wav">
+      <Name>GameOver</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\getcoin.wav">
+      <Name>getcoin</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\jump.wav">
+      <Name>jump</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\laser.wav">
+      <Name>laser</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sound\wav\attacked.wav">
+      <Name>attacked</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\MonterDied.wav">
+      <Name>MonterDied</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
