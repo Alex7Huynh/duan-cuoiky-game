@@ -72,11 +72,24 @@ namespace MyFirstApp
             graphics.PreferredBackBufferHeight = GlobalSetting.GameHeight;
             graphics.ApplyChanges();
             //Font
-            gameFont = Content.Load<SpriteFont>(@"Font\GameFont");
-            //Mouse
-            this.IsMouseVisible = true;
+            gameFont = Content.Load<SpriteFont>(@"Font\GameFont");            
             //Sound
-            mainTheme = Content.Load<Song>(@"Sound\maintheme");
+            //mainTheme = Content.Load<Song>(@"Sound\Athletic");
+            List<string> lstSong = new List<string>() {
+            "01. Assassins of Kings",
+            "03. The Path of a Kingslayer",
+            "06. The Lone Survivor",
+            "09. Easier Said than Killed",
+            "10. A Watering Hole in the Harbor",
+            "12. Regicide",
+            "13. The Wild Hunt",
+            "15. For a Higher Cause",
+            "18. The Assassin Looms",
+            "21. Howl of the White Wolf",
+            "22. Sorceresses",
+            "land",
+            "Old Mario"};
+            mainTheme = Content.Load<Song>(@"Sound\mp3\" + lstSong[0]);
             MediaPlayer.Play(mainTheme);
             bMute = false;
             //Main game
@@ -155,18 +168,18 @@ namespace MyFirstApp
                 foreach (Character c in _character)
                 {
                     c.Update(gameTime);
-                    c.UpdateMouse();
+                    //c.UpdateMouse();
                 }
             }
             else if (bLoadGame)
             {
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
-                gameLoading.UpdateMouse(this.Content, ref _map);
+                //gameLoading.UpdateMouse(this.Content, ref _map);
             }
             else
             {
                 mainMenu.UpdateKeyboard(ref bMute, mainTheme);
-                mainMenu.UpdateMouse(ref bMute, mainTheme);
+                //mainMenu.UpdateMouse(ref bMute, mainTheme);
             }
 
             base.Update(gameTime);
