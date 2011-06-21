@@ -1,0 +1,8 @@
+Appear 17 96x96
+Damaged 5 60x60
+Disappear 9 50x80
+Fire 8 50x50
+Jump 11 40x60
+Normal 5 48x48
+Run 8 50x50
+Running 8 50x50

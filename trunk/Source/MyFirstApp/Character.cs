@@ -73,7 +73,8 @@ namespace MyFirstApp
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _sprite[0].Draw(gameTime, spriteBatch,
-                new Vector2(_sprite[0].x, _sprite[0].y),
+                //new Vector2(_sprite[0].x, _sprite[0].y),
+                new Vector2(X, Y),
                 new Rectangle(0,0, _sprite[0].Width, _sprite[0].Height),
                 Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
         }

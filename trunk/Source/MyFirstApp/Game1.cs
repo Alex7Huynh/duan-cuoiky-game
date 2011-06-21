@@ -24,6 +24,7 @@ namespace MyFirstApp
         private Song mainTheme;
         private Boolean bMute;
 
+        public static int currentStage;
         public static bool bMainGame;
         public static bool bLoadGame;
         public static bool bExit;
@@ -74,24 +75,8 @@ namespace MyFirstApp
             //Font
             gameFont = Content.Load<SpriteFont>(@"Font\GameFont");            
             //Sound
-            //mainTheme = Content.Load<Song>(@"Sound\Athletic");
-            List<string> lstSong = new List<string>() {
-            "01. Assassins of Kings",
-            "03. The Path of a Kingslayer",
-            "06. The Lone Survivor",
-            "09. Easier Said than Killed",
-            "10. A Watering Hole in the Harbor",
-            "12. Regicide",
-            "13. The Wild Hunt",
-            "15. For a Higher Cause",
-            "18. The Assassin Looms",
-            "21. Howl of the White Wolf",
-            "22. Sorceresses",
-            "land",
-            "Old Mario"};
-            mainTheme = Content.Load<Song>(@"Sound\mp3\" + lstSong[0]);
-            MediaPlayer.Play(mainTheme);
-            bMute = false;
+            MySong.Init(Content);
+            MySong.PlaySong(MySong.ListSong.Title);
             //Main game
             bMainGame = false;
             bLoadGame = false;
@@ -106,7 +91,7 @@ namespace MyFirstApp
             _character.Add(new Character());
             _character[0] = (Character)characterManager.CreateObject(4);
             _character[0].X = 100;
-            _character[0].Y = 100;
+            _character[0].Y = 24*21;
             //_character[0].nDelay = 5;
 
             //mapManager = new MapManager();
@@ -151,10 +136,13 @@ namespace MyFirstApp
             //else
             //    MediaPlayer.Resume();
             //Choi nhac neu nhac bi ngung
-            if (bMute == false && MediaPlayer.State == MediaState.Stopped)
-            {
-                MediaPlayer.Play(mainTheme);
-            }
+            //if (bMute == false && MediaPlayer.State == MediaState.Stopped)
+            //{
+            //    MediaPlayer.Play(mainTheme);
+            //}
+            //MySong.PlaySong();
+            MySong.Resume();
+
             if (bMainGame)
             {
                 //foreach (Map m in _map)
@@ -178,7 +166,7 @@ namespace MyFirstApp
             }
             else
             {
-                mainMenu.UpdateKeyboard(ref bMute, mainTheme);
+                mainMenu.UpdateKeyboard();
                 //mainMenu.UpdateMouse(ref bMute, mainTheme);
             }
 
