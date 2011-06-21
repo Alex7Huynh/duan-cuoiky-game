@@ -646,35 +646,55 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sound\wav\Fire.wav">
+      <Name>Fire</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
     <Compile Include="Sound\wav\GameOver.wav">
       <Name>GameOver</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\wav\getcoin.wav">
-      <Name>getcoin</Name>
+    <Compile Include="Sound\wav\GetCoin.wav">
+      <Name>GetCoin</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\wav\jump.wav">
-      <Name>jump</Name>
+    <Compile Include="Sound\wav\Jump.wav">
+      <Name>Jump</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\wav\laser.wav">
-      <Name>laser</Name>
+    <Compile Include="Sound\wav\Land.wav">
+      <Name>Land</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\Laser.wav">
+      <Name>Laser</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\SelectMenu.wav">
+      <Name>SelectMenu</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sound\wav\attacked.wav">
-      <Name>attacked</Name>
+    <Compile Include="Sound\wav\Damaged.wav">
+      <Name>Damaged</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\wav\MonterDied.wav">
-      <Name>MonterDied</Name>
+    <Compile Include="Sound\wav\MonsterDamaged.wav">
+      <Name>MonsterDamaged</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\wav\MonsterDied.wav">
+      <Name>MonsterDied</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

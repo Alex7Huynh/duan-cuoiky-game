@@ -25,9 +25,8 @@ namespace MyFirstApp
         private string[] _Guru = { "Play new game", "Load a stage you unlocked ", "Mute", "Exit" };
         private string _authors;
         SpriteFont menuFont;
-        SpriteFont instructionFont;        
+        SpriteFont instructionFont;
         private KeyboardState oldKeyboardState;
-        private MouseState oldMouseState;
         #endregion
 
         #region 2 - Các đặc tính
@@ -49,16 +48,12 @@ namespace MyFirstApp
         #endregion
 
         #region 3 - Các phương thức khởi tạo
-
-        #endregion
-
-        #region 4 - Các phương thức xử lý
         public void Init(ContentManager Content)
         {
             _authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";
             ttMenu = new Texture2D[1] { Content.Load<Texture2D>(@"Menu\NormalButton") };
             ttSelectedMenu = new Texture2D[1] { Content.Load<Texture2D>(@"Menu\SelectButton") };
-            
+
             _sprite = new MySprite[4];
             _sprite[0] = new MySprite(ttSelectedMenu, 10, 200, _MenuWidth, _MenuHeight);
             _sprite[1] = new MySprite(ttMenu, 10, 300, _MenuWidth, _MenuHeight);
@@ -67,6 +62,9 @@ namespace MyFirstApp
             menuFont = Content.Load<SpriteFont>(@"Font\MenuFont");
             instructionFont = Content.Load<SpriteFont>(@"Font\Instruction");
         }
+        #endregion
+
+        #region 4 - Các phương thức xử lý
         public void ShowMenu(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (MySprite sprite in _sprite)
@@ -86,88 +84,61 @@ namespace MyFirstApp
             Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
             spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
             spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
-        }        
-        public void UpdateKeyboard(ref bool bMute, Song mainTheme)
+        }
+        public void UpdateKeyboard()
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
-            if (TestKeypress(Keys.Down) && curMenuIdx < 3)
+            if (TestKeypress(Keys.Down))
             {
-                _sprite[curMenuIdx].texture2d = ttMenu;
-                _sprite[++curMenuIdx].texture2d = ttSelectedMenu;
+                if (curMenuIdx < 3)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[++curMenuIdx].texture2d = ttSelectedMenu;
+                }
+                else if (curMenuIdx == 3)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[0].texture2d = ttSelectedMenu;
+                    curMenuIdx = 0;
+                }
             }
-            else if (TestKeypress(Keys.Up) && curMenuIdx > 0)
+            if (TestKeypress(Keys.Up))
             {
-                _sprite[curMenuIdx].texture2d = ttMenu;
-                _sprite[--curMenuIdx].texture2d = ttSelectedMenu;
+                if (curMenuIdx > 0)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[--curMenuIdx].texture2d = ttSelectedMenu;
+                }
+                else if (curMenuIdx == 0)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[3].texture2d = ttSelectedMenu;
+                    curMenuIdx = 3;
+                }
             }
             else if (TestKeypress(Keys.Enter))
             {
-                ProcessMenu(ref bMute, mainTheme);
+                ProcessMenu();
             }
             oldKeyboardState = newKeyboardState;
         }
-        public void UpdateMouse(ref bool bMute, Song mainTheme)
-        {
-            MouseState newMouseState = Mouse.GetState();            
-
-            if (!TestMousepress())
-            {
-                oldMouseState = newMouseState;
-                return;
-            }
-
-            _sprite[curMenuIdx].texture2d = ttMenu;
-            if (_sprite[0].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[0].texture2d = ttSelectedMenu;
-                curMenuIdx = 0;
-            }
-            else if (_sprite[1].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[1].texture2d = ttSelectedMenu;
-                curMenuIdx = 1;
-            }
-            else if (_sprite[2].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[2].texture2d = ttSelectedMenu;
-                curMenuIdx = 2;
-            }
-            else if (_sprite[3].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[3].texture2d = ttSelectedMenu;
-                curMenuIdx = 3;
-            }
-            else
-            {
-                _sprite[curMenuIdx].texture2d = ttSelectedMenu;
-            }
-            ProcessMenu(ref bMute, mainTheme);
-            oldMouseState = newMouseState;
-        }
-        public void ProcessMenu(ref bool bMute, Song mainTheme)
+        public void ProcessMenu()
         {
             switch (curMenuIdx)
             {
                 case 0:
                     Game1.bMainGame = true;
                     Game1.bLoadGame = false;
+                    MySong.PlaySong(MySong.ListSong.Stage1);
                     break;
 
                 case 1:
                     Game1.bMainGame = false;
                     Game1.bLoadGame = true;
+                    MySong.PlaySong(MySong.ListSong.LoadGame);
                     break;
                 case 2:
-                    if (MediaPlayer.State == MediaState.Playing)
-                    {
-                        MediaPlayer.Stop();
-                        bMute = true;
-                    }
-                    else if (MediaPlayer.State == MediaState.Stopped)
-                    {
-                        MediaPlayer.Play(mainTheme);
-                        bMute = false;
-                    }
+                    MySong.Mute();
                     break;
                 case 3:
                     {
@@ -182,13 +153,6 @@ namespace MyFirstApp
         {
             if (Keyboard.GetState().IsKeyUp(theKey)
                 && oldKeyboardState.IsKeyDown(theKey))
-                return true;
-            return false;
-        }
-        private bool TestMousepress()
-        {
-            if (oldMouseState.LeftButton == ButtonState.Released
-                && Mouse.GetState().LeftButton == ButtonState.Pressed)
                 return true;
             return false;
         }

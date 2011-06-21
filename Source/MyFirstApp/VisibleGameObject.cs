@@ -45,7 +45,8 @@ namespace MyFirstApp
         {
             int i;
             for (i = 0; i < _nsprite; i++)
-                _sprite[i].Draw(gameTime, spriteBatch, Color.White, false);
+                _sprite[i].Draw(gameTime, spriteBatch, Color.White, 
+                    new Vector2(X,Y), new Rectangle(0,0,_sprite[i].Width, _sprite[i].Height));
         }
         public virtual void Update(GameTime gameTime)
         {

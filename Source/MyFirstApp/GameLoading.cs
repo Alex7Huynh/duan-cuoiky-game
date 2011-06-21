@@ -22,13 +22,9 @@ namespace MyFirstApp
         private int _MenuHeight = 50;
         private int nSelection;
         private Texture2D[] ttMenu, ttSelectedMenu;
-        private string[] _MenuText;// = { "Stage 1", "Stage 2", "Stage 3", "Stage 4" };
-        //private string[] _Guru = { "Choose this to move a \r\nbackground around \r\nthe screen", "Not yet implemented ", "Mute", "Exit" };
-        //private string _authors;
+        private string[] _MenuText;
         SpriteFont menuFont;
-        //SpriteFont instructionFont;        
         private KeyboardState oldKeyboardState;
-        private MouseState oldMouseState;
         #endregion
 
         #region 2 - Các đặc tính
@@ -50,10 +46,6 @@ namespace MyFirstApp
         #endregion
 
         #region 3 - Các phương thức khởi tạo
-
-        #endregion
-
-        #region 4 - Các phương thức xử lý
         public void Init(ContentManager Content)
         {
             //_authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";
@@ -77,12 +69,12 @@ namespace MyFirstApp
                 _sprite[i] = new MySprite(ttMenu, 200, i * 55 - 100, _MenuWidth, _MenuHeight);
             }
 
-            //_sprite[1] = new MySprite(ttMenu, 10, 300, _MenuWidth, _MenuHeight);
-            //_sprite[2] = new MySprite(ttMenu, 10, 400, _MenuWidth, _MenuHeight);
-            //_sprite[3] = new MySprite(ttMenu, 10, 500, _MenuWidth, _MenuHeight);
             menuFont = Content.Load<SpriteFont>(@"Font\MenuFont");
-            //instructionFont = Content.Load<SpriteFont>(@"Font\Instruction");
         }
+        #endregion
+
+        #region 4 - Các phương thức xử lý
+
         public void ShowMenu(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (MySprite sprite in _sprite)
@@ -96,128 +88,76 @@ namespace MyFirstApp
             {
                 spriteBatch.DrawString(menuFont, _MenuText[i], new Vector2(230, i * 55 - 95), Color.White);
             }
-            //spriteBatch.DrawString(menuFont, _MenuText[0], new Vector2(20, 205), Color.White);
-            //spriteBatch.DrawString(menuFont, _MenuText[1], new Vector2(20, 305), Color.White);
-            //spriteBatch.DrawString(menuFont, _MenuText[2], new Vector2(20, 405), Color.White);
-            //spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(20, 505), Color.White);
-
-            //spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);
-            //spriteBatch.DrawString(instructionFont, _authors, new Vector2(GlobalSetting.GameWidth - 270, GlobalSetting.GameHeight - 50), Color.Yellow);
         }
         public void ShowBackground(ContentManager Content, SpriteBatch spriteBatch)
         {
             Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background02");
-            //Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
             spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
-            //spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
+
         }
         public void UpdateKeyboard(ContentManager Content, ref Map map)
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
-            if (TestKeypress(Keys.Down) && curMenuIdx < nSelection - 1)
+            if (TestKeypress(Keys.Down))
+            {
+                if (curMenuIdx < nSelection - 1)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[++curMenuIdx].texture2d = ttSelectedMenu;
+                }
+                else if (curMenuIdx == nSelection - 1)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[0].texture2d = ttSelectedMenu;
+                    curMenuIdx = 0;
+                }
+            }
+            if (TestKeypress(Keys.Up))
+            {
+                if (curMenuIdx > 0)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[--curMenuIdx].texture2d = ttSelectedMenu;
+                }
+                else if (curMenuIdx == 0)
+                {
+                    _sprite[curMenuIdx].texture2d = ttMenu;
+                    _sprite[nSelection - 1].texture2d = ttSelectedMenu;
+                    curMenuIdx = nSelection - 1;
+                }
+            }
+            if (TestKeypress(Keys.Left) && curMenuIdx >= 5)
             {
                 _sprite[curMenuIdx].texture2d = ttMenu;
-                _sprite[++curMenuIdx].texture2d = ttSelectedMenu;
+                _sprite[curMenuIdx-5].texture2d = ttSelectedMenu;
+                curMenuIdx -= 5;
             }
-            else if (TestKeypress(Keys.Up) && curMenuIdx > 0)
+            if (TestKeypress(Keys.Right) && curMenuIdx < 5)
             {
                 _sprite[curMenuIdx].texture2d = ttMenu;
-                _sprite[--curMenuIdx].texture2d = ttSelectedMenu;
+                _sprite[curMenuIdx + 5].texture2d = ttSelectedMenu;
+                curMenuIdx += 5;
             }
-            else if (TestKeypress(Keys.Enter))
+            if (TestKeypress(Keys.Enter))
             {
                 ProcessMenu(Content, ref map);
             }
             oldKeyboardState = newKeyboardState;
         }
-        public void UpdateMouse(ContentManager Content, ref Map map)
-        {
-            MouseState newMouseState = Mouse.GetState();
-
-            if (!TestMousepress())
-            {
-                oldMouseState = newMouseState;
-                return;
-            }
-
-            _sprite[curMenuIdx].texture2d = ttMenu;
-            if (_sprite[0].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[0].texture2d = ttSelectedMenu;
-                curMenuIdx = 0;
-            }
-            else if (_sprite[1].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[1].texture2d = ttSelectedMenu;
-                curMenuIdx = 1;
-            }
-            else if (_sprite[2].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[2].texture2d = ttSelectedMenu;
-                curMenuIdx = 2;
-            }
-            else if (_sprite[3].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[3].texture2d = ttSelectedMenu;
-                curMenuIdx = 3;
-            }
-            else if (_sprite[4].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[4].texture2d = ttSelectedMenu;
-                curMenuIdx = 4;
-            }
-            else if (_sprite[5].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[5].texture2d = ttSelectedMenu;
-                curMenuIdx = 5;
-            }
-            else if (_sprite[6].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[6].texture2d = ttSelectedMenu;
-                curMenuIdx = 6;
-            }
-            else if (_sprite[7].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[7].texture2d = ttSelectedMenu;
-                curMenuIdx = 7;
-            }
-            else if (_sprite[8].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[8].texture2d = ttSelectedMenu;
-                curMenuIdx = 8;
-            }
-            else if (_sprite[9].Contain(newMouseState.X, newMouseState.Y))
-            {
-                _sprite[9].texture2d = ttSelectedMenu;
-                curMenuIdx = 9;
-            }
-            else
-            {
-                _sprite[curMenuIdx].texture2d = ttSelectedMenu;
-            }
-            ProcessMenu(Content, ref map);
-            oldMouseState = newMouseState;
-        }
         public void ProcessMenu(ContentManager Content, ref Map map)
-        {            
+        {
             if (curMenuIdx >= 0 && curMenuIdx < 10)
             {
                 Game1.bMainGame = true;
                 Game1.bLoadGame = false;
-                map.ReadMap(Content, curMenuIdx+1);
+                map.ReadMap(Content, curMenuIdx + 1);
+                MySong.PlaySong(curMenuIdx + 2);
             }
         }
         private bool TestKeypress(Keys theKey)
         {
             if (Keyboard.GetState().IsKeyUp(theKey)
                 && oldKeyboardState.IsKeyDown(theKey))
-                return true;
-            return false;
-        }
-        private bool TestMousepress()
-        {
-            if (oldMouseState.LeftButton == ButtonState.Released
-                && Mouse.GetState().LeftButton == ButtonState.Pressed)
                 return true;
             return false;
         }
