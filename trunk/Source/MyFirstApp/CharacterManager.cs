@@ -31,7 +31,7 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public override void InitPrototypes(ContentManager contentManager)
         {
-            _nprototype = 8;
+            _nprototype = 7;
             _prototype = new Character[_nprototype]; // read information from configuration file(s)
             
             //Nhan vat xuat hien
@@ -56,15 +56,15 @@ namespace MyFirstApp
             ((Character)_prototype[4]).nDelay = 15;
             //Nhan vat luc bat dau chay
             _prototype[5] = new Character();
-            _prototype[5].Init(contentManager, 8, "Run//");
-            ((Character)_prototype[5]).nDelay = 8;
+            _prototype[5].Init(contentManager, 16, "Run//");
+            ((Character)_prototype[5]).nDelay = 2;
             //Nhan vat luc dang chay
             _prototype[6] = new Character();
-            _prototype[6].Init(contentManager, 8, "Running//");
+            _prototype[6].Init(contentManager, 8, "Fire//");
             ((Character)_prototype[6]).nDelay = 8;
-            _prototype[7] = new Character();
-            _prototype[7].Init(contentManager, 8, "Fire//");
-            ((Character)_prototype[7]).nDelay = 8;
+            //_prototype[7] = new Character();
+            //_prototype[7].Init(contentManager, 8, "Fire//");
+            //((Character)_prototype[7]).nDelay = 8;
         }
         #endregion
     }

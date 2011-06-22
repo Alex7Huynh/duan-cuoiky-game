@@ -101,18 +101,6 @@ namespace MyFirstApp
             _background = Content.Load<Texture2D>(@"Maingame\Background\background"
                 + IDBackground.ToString("00"));
         }
-        public bool IsCollision()
-        {
-            Vector2 CollisionCell = new Vector2(
-                GlobalSetting.XPos.Y / CellSize + 1,
-                GlobalSetting.XPos.X / CellSize + 2);
-
-            if ('A' <= _map[(int)CollisionCell.X, (int)CollisionCell.Y + _CellPassed]
-                    && _map[(int)CollisionCell.X, (int)CollisionCell.Y + _CellPassed] <= '`')
-                return true;
-
-            return false;
-        }
         public void UpdateKeyboard(GameTime gameTime)
         {
             Vector2 XCell = new Vector2(
@@ -120,31 +108,58 @@ namespace MyFirstApp
                 GlobalSetting.XPos.X / CellSize);
             //Delay one second - time count up
             oneSecondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Collision Dectection
+            if (CanGetCoin(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            {
+                GlobalSetting.Coin++;
+                MySong.PlaySound(MySong.ListSound.GetCoin);
+            }
+            if (CanGetQuestionCoin(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            {
+                GlobalSetting.Coin++;
+                MySong.PlaySound(MySong.ListSound.GetCoin);
+            }
+            if (CanGetHurt(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            {
+                GlobalSetting.CurrentHealth--;
+                MySong.PlaySound(MySong.ListSound.Damaged);
+            }
+            //Keyboard Process
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 //Top right cell
-                if ('A' <= _map[(int)XCell.X, (int)XCell.Y+2 + _CellPassed]
-                    && _map[(int)XCell.X, (int)XCell.Y+2 + _CellPassed] <= '`')
+                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed]
+                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed] <= '_'
+                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed] != 'H')
+                //    return;
+                if (CanPass((int)XCell.X, (int)XCell.Y + 2 + _CellPassed))
                     return;
                 //Bottom right cell
-                if ('A' <= _map[(int)XCell.X+1, (int)XCell.Y+2 + _CellPassed]
-                && _map[(int)XCell.X+1, (int)XCell.Y+2 + _CellPassed] <= '`')
+                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed]
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed] <= '_'
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed] != 'H')
+                //    return;
+                if (CanPass((int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed))
                     return;
-
                 _CellPassed++;
             }
             else if (keyboardState.IsKeyDown(Keys.Left))
             {
                 //Top left cell
-                if ('A' <= _map[(int)XCell.X, (int)XCell.Y-1 + _CellPassed]
-                    && _map[(int)XCell.X, (int)XCell.Y-1 + _CellPassed] <= '`')
+                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed]
+                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed] <= '_'
+                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed] != 'H')
+                //    return;
+                if (CanPass((int)XCell.X, (int)XCell.Y - 1 + _CellPassed))
                     return;
                 //Bottom left cell
-                if ('A' <= _map[(int)XCell.X+1, (int)XCell.Y-1 + _CellPassed]
-                && _map[(int)XCell.X+1, (int)XCell.Y-1 + _CellPassed] <= '`')
+                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed]
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed] <= '_'
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed] != 'H')
+                //    return;
+                if (CanPass((int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed))
                     return;
-
                 _CellPassed--;
             }
             else if (keyboardState.IsKeyDown(Keys.Back))
@@ -158,7 +173,6 @@ namespace MyFirstApp
                     MySong.PlaySound(MySong.ListSound.Jump);
                     oneSecondTimer = 0;
                 }
-
             }
             else if (keyboardState.IsKeyDown(Keys.C))
             {
@@ -167,16 +181,72 @@ namespace MyFirstApp
                     MySong.PlaySound(MySong.ListSound.Fire);
                     oneSecondTimer = 0;
                 }
-
-
             }
+
             //Xet xem da di den cuoi cua ban do hay chua
             //Neu da den cuoi thi khong the di tiep
-            if (_CellPassed < 0)
-                _CellPassed = 0;
-            if (_CellPassed >= GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height))
-                _CellPassed = GlobalSetting.MapCols - (int)Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height);
+            _CellPassed = (int)MathHelper.Clamp(_CellPassed, 0, (float)(GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height)));
+            //Get coint
 
+        }
+        public bool CanPass(int x, int y)
+        {
+            if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
+                && _map[x, y] != 'H' //Coin
+                && _map[x, y] != 'L'
+                && _map[x, y] != 'T' && _map[x, y] != 'U'
+                && _map[x, y] != 'V' && _map[x, y] != 'W')
+                return true;
+            return false;
+        }
+        public bool CanGetCoin(Vector2 XCell)
+        {
+            if (_map[(int)XCell.X, (int)XCell.Y] == 'H')
+            {
+                _map[(int)XCell.X, (int)XCell.Y] = '?';
+                return true;
+            }
+            if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'H')
+            {
+                _map[(int)XCell.X, (int)XCell.Y + 1] = '?';
+                return true;
+            }
+            if (_map[(int)XCell.X + 1, (int)XCell.Y] == 'H')
+            {
+                _map[(int)XCell.X + 1, (int)XCell.Y] = '?';
+                return true;
+            }
+            if (_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'H')
+            {
+                _map[(int)XCell.X + 1, (int)XCell.Y + 1] = '?';
+                return true;
+            }
+            return false;
+        }
+        public bool CanGetQuestionCoin(Vector2 XCell)
+        {
+            if (_map[(int)XCell.X, (int)XCell.Y] == 'K')
+            {
+                _map[(int)XCell.X, (int)XCell.Y] = 'A';
+                return true;
+            }
+            if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'K')
+            {
+                _map[(int)XCell.X, (int)XCell.Y + 1] = 'A';
+                return true;
+            }            
+            return false;
+        }
+        public bool CanGetHurt(Vector2 XCell)
+        {
+            if (_map[(int)XCell.X, (int)XCell.Y] == 'L'
+                ||_map[(int)XCell.X + 1, (int)XCell.Y] == 'L'
+                ||_map[(int)XCell.X, (int)XCell.Y + 1] == 'L'
+                ||_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'L')
+            {
+                return true;
+            }
+            return false;
         }
         public override void Update(GameTime gameTime)
         {
@@ -203,7 +273,7 @@ namespace MyFirstApp
                 {
                     if (_map[i, j + _CellPassed] == '?')
                         continue;
-                    else if ('A' <= _map[i, j + _CellPassed] && _map[i, j + _CellPassed] <= '`')
+                    else if ('A' <= _map[i, j + _CellPassed] && _map[i, j + _CellPassed] <= '_')
                         cellIndex = _map[i, j + _CellPassed] - 65;
                     else
                         continue;
@@ -220,22 +290,28 @@ namespace MyFirstApp
 
             float totalSeconds = (float)gameTime.ElapsedRealTime.TotalSeconds;
 
-            Vector2 CollisionCell = new Vector2(
-                GlobalSetting.XPos.X / CellSize + 2,
-                GlobalSetting.XPos.Y / CellSize + 1);
-            int MaxCellPassed = GlobalSetting.MapCols 
+            Vector2 XCell = new Vector2(
+                GlobalSetting.XPos.Y / CellSize,
+                GlobalSetting.XPos.X / CellSize);
+            int MaxCellPassed = GlobalSetting.MapCols
                 - (int)(GlobalSetting.GameWidth / Map.CellSize) - 1;
             //if (_DelayTime++ < 900)
-                spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
-                + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress X to jump and Space to shoot"
-                + "\r\nClick mouse to teleport Megario"
-                + "\r\n_CellPassed" + _CellPassed
-                + "\r\n totalSeconds" + totalSeconds
-                + "\r\n oneSecondTimer" + oneSecondTimer
-                + "\r\n MaxCellPassed" + MaxCellPassed
-                + "\r\n CollisionCell" + CollisionCell.X + "   " + CollisionCell.Y,
-                new Vector2(20, 100), Color.Blue);
+            spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
+            + "\r\nPress Backspace to go back to main menu"
+            + "\r\nPress X to jump and Space to shoot"
+            + "\r\nClick mouse to teleport Megario"
+            + "\r\n_CellPassed" + _CellPassed
+            + "\r\n totalSeconds" + totalSeconds
+            + "\r\n oneSecondTimer" + oneSecondTimer
+            + "\r\n MaxCellPassed" + MaxCellPassed
+            + "\r\n Coin" + _map[18, 10]
+            + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y]
+            + "\r\n Coin" + _map[(int)XCell.X+1, (int)XCell.Y]
+            + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y+1]
+            + "\r\n Coin" + _map[(int)XCell.X+1, (int)XCell.Y+1]
+            + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
+            + "\r\n XCell" + XCell.X + "   " + (XCell.Y+ + _CellPassed),
+            new Vector2(20, 100), Color.Blue);
         }
         #endregion
     }
