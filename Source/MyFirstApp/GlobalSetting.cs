@@ -21,7 +21,14 @@ namespace MyFirstApp
         public static int MapCols = 300;
         public static int MapRows = 25;
 
-        public static Vector2 XPos;
+        public static Vector2 XPos = new Vector2(24 * 10, 24 * 21);
+        public static int CurrentHealth = 100;
+        public static int Coin = 0;
+
+        public static int GetMaxCellPassed()
+        {
+            return MapCols - (int)(GameWidth / Map.CellSize) - 1;
+        }
         //public static int MaxCellPassed = MapCols - (int)(GameWidth / Map.CellSize) - 1;
     }
 }

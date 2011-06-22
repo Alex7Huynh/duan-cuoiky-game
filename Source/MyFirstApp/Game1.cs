@@ -20,7 +20,7 @@ namespace MyFirstApp
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        public static SpriteFont gameFont;        
+        public static SpriteFont gameFont;
 
         public static int currentStage;
         public static bool bMainGame;
@@ -48,18 +48,18 @@ namespace MyFirstApp
             Content.RootDirectory = "Content";
 
             //TargetElapsedTime = TimeSpan.FromSeconds(1 / 30.0);            
-        }        
+        }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            base.Initialize();            
+            base.Initialize();
 
         }
         protected override void LoadContent()
-        {            
+        {
             //Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);            
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             //Menu
             mainMenu = new Menu();
             mainMenu.Init(this.Content);
@@ -71,7 +71,7 @@ namespace MyFirstApp
             graphics.PreferredBackBufferHeight = GlobalSetting.GameHeight;
             graphics.ApplyChanges();
             //Font
-            gameFont = Content.Load<SpriteFont>(@"Font\GameFont");            
+            gameFont = Content.Load<SpriteFont>(@"Font\GameFont");
             //Sound
             MySong.Init(Content);
             MySong.PlaySong(MySong.ListSong.Title);
@@ -87,9 +87,9 @@ namespace MyFirstApp
             _character = new List<Character>();
 
             _character.Add(new Character());
-            _character[0] = (Character)characterManager.CreateObject(7);
-            _character[0].X = 24*5;
-            _character[0].Y = 24*21;
+            _character[0] = (Character)characterManager.CreateObject(5);
+            _character[0].X = GlobalSetting.XPos.X;
+            _character[0].Y = GlobalSetting.XPos.Y;
             //_character[0].nDelay = 5;
 
             //mapManager = new MapManager();
@@ -98,7 +98,7 @@ namespace MyFirstApp
             //_nMap = 1;
             //_map = new List<Map>();
             //_map.Add(new Map());
-            
+
             //_map[0].Init(this.Content, 1, "Tiles");
             //_map[0].ReadMap(this.Content, "Stage10.txt", 25, 300);
             //_map[0].InitBackground(this.Content, "Background");
@@ -159,8 +159,8 @@ namespace MyFirstApp
                     _character[0] = (Character)characterManager.CreateObject(5);
                 else if (keyboardState.IsKeyDown(Keys.NumPad7))
                     _character[0] = (Character)characterManager.CreateObject(6);
-                else if (keyboardState.IsKeyDown(Keys.NumPad8))
-                    _character[0] = (Character)characterManager.CreateObject(7);
+                //else if (keyboardState.IsKeyDown(Keys.NumPad8))
+                //    _character[0] = (Character)characterManager.CreateObject(7);
 
 
                 _map.UpdateKeyboard(gameTime);
@@ -193,7 +193,7 @@ namespace MyFirstApp
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            if(bMainGame)
+            if (bMainGame)
             {
                 //for (int i = 0; i < _nVisibleGameEntity; i++)
                 //    _gameEntity[i].Draw(gameTime, spriteBatch);
@@ -201,11 +201,22 @@ namespace MyFirstApp
                 //{
                 //    m.Draw(gameTime, spriteBatch);
                 //}
+                //Map
                 _map.Draw(gameTime, spriteBatch);
+                //Character
                 foreach (Character c in _character)
                 {
                     c.Draw(gameTime, spriteBatch);
                 }
+                //Health Bar
+                Texture2D mHealthBar = Content.Load<Texture2D>(@"X\HealthBar");
+                spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, mHealthBar.Width, 20), new Rectangle(0, 45, mHealthBar.Width, 44), Color.White);
+                spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, (int)(mHealthBar.Width * ((double)GlobalSetting.CurrentHealth / 100)), 20), new Rectangle(0, 45, mHealthBar.Width, 44), Color.Red);
+                spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, mHealthBar.Width, 20), new Rectangle(0, 0, mHealthBar.Width, 44), Color.White);
+                //
+                spriteBatch.DrawString(Game1.gameFont,
+                    "\r\nCoin = " + GlobalSetting.Coin,
+                    new Vector2(0, 0), Color.White);
             }
             else if (bLoadGame)
             {

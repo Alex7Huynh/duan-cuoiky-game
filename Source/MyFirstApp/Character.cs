@@ -56,31 +56,51 @@ namespace MyFirstApp
 
             return true;
         }
+        private KeyboardState oldKeyboardState;
+        private bool TestKeypress(Keys theKey)
+        {
+            if (Keyboard.GetState().IsKeyUp(theKey)
+                && oldKeyboardState.IsKeyDown(theKey))
+                return true;
+            return false;
+        }
         public override void Update(GameTime gameTime)
         {
+            KeyboardState newKeyboardState = Keyboard.GetState();
+            //Demo moving
+            if (newKeyboardState.IsKeyDown(Keys.Up))
+                Y -= 24;
+            if (newKeyboardState.IsKeyDown(Keys.Down))
+                Y += 24;
+            //Flip texture
+            if (newKeyboardState.IsKeyDown(Keys.Left))
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            if (newKeyboardState.IsKeyDown(Keys.Right))
+                spriteEffect = SpriteEffects.None;
+            //Demo health bar
+            if (newKeyboardState.IsKeyDown(Keys.Insert))
+                GlobalSetting.CurrentHealth++;
+            if (newKeyboardState.IsKeyDown(Keys.Delete))
+                GlobalSetting.CurrentHealth--;            
+            //Main process
             if (iDelay == 0)
             {
                 int i;
-                KeyboardState keyboardState = Keyboard.GetState();
-                if (keyboardState.IsKeyDown(Keys.Z))
+                
+                if (newKeyboardState.IsKeyDown(Keys.Z))
                 {
                     for (i = 0; i < _nsprite; i++)
                     {
-                        _sprite[i].Update(gameTime);        //Update
-                        _sprite[i].ResetIndex(2);          //Lap lai sprite                        
-                    }                    
+                        _sprite[i].Update(gameTime);
+                        _sprite[i].ResetIndex(3);
+                    }
                 }
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    Y -= 24;
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    Y += 24;
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    spriteEffect = SpriteEffects.FlipHorizontally;
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    spriteEffect = SpriteEffects.None;
+                _sprite[0].Update(gameTime);
+                _sprite[0].ResetIndex(1);                
             }
             iDelay = (iDelay + 1) % nDelay;
             GlobalSetting.XPos = new Vector2(X, Y);
+            oldKeyboardState = newKeyboardState;
         }
         SpriteEffects spriteEffect;
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -89,13 +109,15 @@ namespace MyFirstApp
                 //new Vector2(_sprite[0].x, _sprite[0].y),
                 new Vector2(X, Y),
                 new Rectangle(0, 0, _sprite[0].Width, _sprite[0].Height),
-                Color.White, 0f, Vector2.Zero, 1.0f, spriteEffect, 1f);
+                Color.White, 0f, Vector2.Zero, 1.0f, spriteEffect, 1f);        
+
             int a = (int)(X / Map.CellSize);
             int b = (int)(Y / Map.CellSize);
             spriteBatch.DrawString(Game1.gameFont, ""
-                + "\r\n" + a + "   " + b
-                + "\r\n" + X + "   " + Y,
-                new Vector2(20, 50), Color.Blue);
+                + "\r\niDelay " + iDelay
+                + "\r\na&b " + a + "   " + b
+                + "\r\nX&Y " + X + "   " + Y,
+                new Vector2(20, 20), Color.Blue);
         }
         private MouseState newMouseState;
         private MouseState oldMouseState;
