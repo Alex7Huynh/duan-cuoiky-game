@@ -11,7 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
-
+using System.Xml;
+using System.IO;
 namespace MyFirstApp
 {
     public class Map : VisibleGameEntity
@@ -23,10 +24,15 @@ namespace MyFirstApp
         private int _CellPassed;
         private char[,] _map;
         private Texture2D _background;
-        private float oneSecondTimer = 0;
-        public static int CellSize;
-        public static string StageName;
-        public static bool Unlock;
+        private float oneSecondTimer = 0;//T
+        public static int CellSize;//Kit thuot o
+        public static string StageName;//Ten cai stage 
+        public static int Unlock;//Coi stage co dang chay hay khong
+        /**********************Tien******************************/
+        public int _scoreMax = 0;//Xac dinh diem so cua mang choi 
+        string[] _fileNameLoadXML = Directory.GetFiles(@"\Maingame\SaveGame\Load.xml");//Lay ten file xml
+        public ContentManager _content;//Lay ten state dung de load len 
+        /**********************Tien******************************/
         #endregion
 
         #region 2 - Các đặc tính
@@ -79,6 +85,11 @@ namespace MyFirstApp
 
             return true;
         }
+        /// <summary>
+        /// Doc map voi mot content va id cua content do
+        /// </summary>
+        /// <param name="Content"></param>
+        /// <param name="IDStage"></param>
         public void ReadMap(ContentManager Content, int IDStage)
         {
             _map = new char[GlobalSetting.MapRows, GlobalSetting.MapCols];
@@ -96,11 +107,20 @@ namespace MyFirstApp
             }
             InitBackground(Content, IDStage);
         }
+        /// <summary>
+        /// Ve background
+        /// </summary>
+        /// <param name="Content"></param>
+        /// <param name="IDBackground"></param>
         public void InitBackground(ContentManager Content, int IDBackground)
         {
             _background = Content.Load<Texture2D>(@"Maingame\Background\background"
                 + IDBackground.ToString("00"));
         }
+        /// <summary>
+        /// Xu ly khi dung cac vat tren duong di
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void UpdateKeyboard(GameTime gameTime)
         {
             Vector2 XCell = new Vector2(
@@ -295,24 +315,120 @@ namespace MyFirstApp
                 GlobalSetting.XPos.X / CellSize);
             int MaxCellPassed = GlobalSetting.MapCols
                 - (int)(GlobalSetting.GameWidth / Map.CellSize) - 1;
-            //if (_DelayTime++ < 900)
-            spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
-            + "\r\nPress Backspace to go back to main menu"
-            + "\r\nPress X to jump and Space to shoot"
-            + "\r\nClick mouse to teleport Megario"
-            + "\r\n_CellPassed" + _CellPassed
-            + "\r\n totalSeconds" + totalSeconds
-            + "\r\n oneSecondTimer" + oneSecondTimer
-            + "\r\n MaxCellPassed" + MaxCellPassed
-            + "\r\n Coin" + _map[18, 10]
-            + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y]
-            + "\r\n Coin" + _map[(int)XCell.X+1, (int)XCell.Y]
-            + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y+1]
-            + "\r\n Coin" + _map[(int)XCell.X+1, (int)XCell.Y+1]
-            + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
-            + "\r\n XCell" + XCell.X + "   " + (XCell.Y+ + _CellPassed),
-            new Vector2(20, 100), Color.Blue);
+            if (_DelayTime++ < 900)
+                spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
+                + "\r\nPress Backspace to go back to main menu"
+                + "\r\nPress X to jump and Space to shoot"
+                + "\r\nClick mouse to teleport Megario"
+                + "\r\n_CellPassed" + _CellPassed
+                + "\r\n totalSeconds" + totalSeconds
+                + "\r\n oneSecondTimer" + oneSecondTimer
+                + "\r\n MaxCellPassed" + MaxCellPassed
+                + "\r\n Coin" + _map[18, 10]
+                + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y]
+                + "\r\n Coin" + _map[(int)XCell.X + 1, (int)XCell.Y]
+                + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y + 1]
+                + "\r\n Coin" + _map[(int)XCell.X + 1, (int)XCell.Y + 1]
+                + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
+                + "\r\n XCell" + XCell.X + "   " + (XCell.Y + +_CellPassed),
+                new Vector2(20, 100), Color.Blue);
         }
+
+        /**********************Tien******************************/
+        public void LoadFileXML(string fileName)
+        {
+            try
+            {
+                //Doc ten file xml
+                XmlTextReader rdXml = new XmlTextReader(fileName);
+                while (rdXml.Read())
+                {
+                    switch (rdXml.Name)
+                    {
+                            //Neu la node diem thi lay ra so diem nguoi choi
+                        case "score":
+                            _scoreMax = rdXml.ReadElementContentAsInt();
+                            break;
+                        case "map1":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 1);
+                            }
+                            break;
+                        case "map2":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 2);
+                            };
+                            break;
+                        case "map3":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 3);
+                            }
+                            break;
+                        case "map4":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 4);
+                            }
+                            break;
+                        case "map5":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 5);
+                            }
+                            break;
+                        case "map6":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 6);
+                            }
+                            break;
+                        case "map7":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 7);
+                            }
+                            break;
+                        case "map8":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 8);
+                            }
+                            break;
+                        case "map9":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 9);
+                            }
+                            break;
+                        case "map10":
+                            Unlock = rdXml.ReadElementContentAsInt();
+                            if (Unlock == 1)
+                            {
+                                ReadMap(_content, 10);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+        /**********************Tien******************************/
         #endregion
     }
 }
