@@ -20,7 +20,7 @@ namespace MyFirstApp
         public MySprite[] _sprite;
         public int _nsprite;
         private float _x;        
-        private float _y;        
+        private float _y;
         #endregion
 
         #region 2 - Các đặc tính

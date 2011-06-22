@@ -24,6 +24,7 @@ namespace MyFirstApp
         private float _y;
         private int _width;
         private int _height;
+        private bool Alive;        
         protected int _itexture2d;
         Keys[] prevKeys = new Keys[0];
         #endregion
@@ -68,6 +69,11 @@ namespace MyFirstApp
             get { return _height; }
             set { _height = value; }
         }
+        public bool Alive1
+        {
+            get { return Alive; }
+            set { Alive = value; }
+        }
         protected int itexture2d
         {
             get { return _itexture2d; }
@@ -83,8 +89,9 @@ namespace MyFirstApp
             y = rY;
             _width = rWidth;
             _height = rHeight;
+            Alive = true;
             itexture2d = 0;
-            screenSize = new Vector2(rWidth, rHeight);            
+            screenSize = new Vector2(rWidth, rHeight);
         }        
         #endregion
 
@@ -117,8 +124,8 @@ namespace MyFirstApp
                 _y += 5;*/
             if (_itexture2d < _ntexture2d - 1)
                 _itexture2d++;
-            else if (_itexture2d == _ntexture2d - 1)
-                _itexture2d = 0;
+            //else if (_itexture2d == _ntexture2d - 1)
+            //    _itexture2d = 0;
             //_itexture2d = (_itexture2d + 1) % _ntexture2d;
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, bool bFixSize)
@@ -144,10 +151,10 @@ namespace MyFirstApp
             Rectangle rec = new Rectangle((int)_x, (int)_y, _width, _height);
             return rec.Contains(new Point(rX,rY));
         }
-        public void ResetIndex()
+        public void ResetIndex(int StartIndex)
         {
             if(_itexture2d == _ntexture2d-1)
-            _itexture2d = 0;
+                _itexture2d = StartIndex;
         }
         #endregion
     }

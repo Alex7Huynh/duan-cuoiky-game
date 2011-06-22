@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+
 namespace MyFirstApp
 {
     public class Character : VisibleGameEntity
@@ -54,29 +55,47 @@ namespace MyFirstApp
             _sprite[0] = new MySprite(texture2D, 0.0f, 0.0f, texture2D[0].Width, texture2D[0].Height);
 
             return true;
-        }        
+        }
         public override void Update(GameTime gameTime)
         {
             if (iDelay == 0)
             {
                 int i;
-                for (i = 0; i < _nsprite; i++)
+                KeyboardState keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.Z))
                 {
-                    _sprite[i].Update(gameTime);        //Update
-                    //_sprite[i].ResetIndex();          //Lap lai sprite
+                    for (i = 0; i < _nsprite; i++)
+                    {
+                        _sprite[i].Update(gameTime);        //Update
+                        _sprite[i].ResetIndex(2);          //Lap lai sprite                        
+                    }                    
                 }
-                
+                if (keyboardState.IsKeyDown(Keys.Up))
+                    Y -= 24;
+                if (keyboardState.IsKeyDown(Keys.Down))
+                    Y += 24;
+                if (keyboardState.IsKeyDown(Keys.Left))
+                    spriteEffect = SpriteEffects.FlipHorizontally;
+                if (keyboardState.IsKeyDown(Keys.Right))
+                    spriteEffect = SpriteEffects.None;
             }
             iDelay = (iDelay + 1) % nDelay;
-            
+            GlobalSetting.XPos = new Vector2(X, Y);
         }
+        SpriteEffects spriteEffect;
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _sprite[0].Draw(gameTime, spriteBatch,
                 //new Vector2(_sprite[0].x, _sprite[0].y),
                 new Vector2(X, Y),
-                new Rectangle(0,0, _sprite[0].Width, _sprite[0].Height),
-                Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
+                new Rectangle(0, 0, _sprite[0].Width, _sprite[0].Height),
+                Color.White, 0f, Vector2.Zero, 1.0f, spriteEffect, 1f);
+            int a = (int)(X / Map.CellSize);
+            int b = (int)(Y / Map.CellSize);
+            spriteBatch.DrawString(Game1.gameFont, ""
+                + "\r\n" + a + "   " + b
+                + "\r\n" + X + "   " + Y,
+                new Vector2(20, 50), Color.Blue);
         }
         private MouseState newMouseState;
         private MouseState oldMouseState;
@@ -91,7 +110,7 @@ namespace MyFirstApp
         {
             MouseState mstate = Mouse.GetState();
             newMouseState = mstate;
-            
+
             if (!TestMousepress())
             {
                 oldMouseState = newMouseState;
@@ -100,7 +119,7 @@ namespace MyFirstApp
 
             _sprite[0].x = mstate.X - (mstate.X % Map.CellSize);
             _sprite[0].y = mstate.Y - (mstate.Y % Map.CellSize);
-            _sprite[0].ResetIndex();
+            //_sprite[0].ResetIndex();
             oldMouseState = newMouseState;
         }
         #endregion
