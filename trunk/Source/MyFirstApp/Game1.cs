@@ -20,9 +20,7 @@ namespace MyFirstApp
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        public static SpriteFont gameFont;
-        private Song mainTheme;
-        private Boolean bMute;
+        public static SpriteFont gameFont;        
 
         public static int currentStage;
         public static bool bMainGame;
@@ -89,8 +87,8 @@ namespace MyFirstApp
             _character = new List<Character>();
 
             _character.Add(new Character());
-            _character[0] = (Character)characterManager.CreateObject(4);
-            _character[0].X = 100;
+            _character[0] = (Character)characterManager.CreateObject(7);
+            _character[0].X = 24*5;
             _character[0].Y = 24*21;
             //_character[0].nDelay = 5;
 
@@ -106,7 +104,7 @@ namespace MyFirstApp
             //_map[0].InitBackground(this.Content, "Background");
             _map = new Map();
             _map.Init(this.Content, 1, "Tiles");
-            _map.ReadMap(this.Content, 10);
+            _map.ReadMap(this.Content, 1);
 
             //_nVisibleGameEntity = _nCharacter + _nMap;
 
@@ -135,12 +133,8 @@ namespace MyFirstApp
             //}
             //else
             //    MediaPlayer.Resume();
-            //Choi nhac neu nhac bi ngung
-            //if (bMute == false && MediaPlayer.State == MediaState.Stopped)
-            //{
-            //    MediaPlayer.Play(mainTheme);
-            //}
-            //MySong.PlaySong();
+
+            //Choi nhac neu nhac bi ngung            
             MySong.Resume();
 
             if (bMainGame)
@@ -150,7 +144,26 @@ namespace MyFirstApp
                 //    m.UpdateKeyboard(iWidth, iHeight);
                 //    m.Update(gameTime);
                 //}
-                _map.UpdateKeyboard();
+                KeyboardState keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.NumPad1))
+                    _character[0] = (Character)characterManager.CreateObject(0);
+                else if (keyboardState.IsKeyDown(Keys.NumPad2))
+                    _character[0] = (Character)characterManager.CreateObject(1);
+                else if (keyboardState.IsKeyDown(Keys.NumPad3))
+                    _character[0] = (Character)characterManager.CreateObject(2);
+                else if (keyboardState.IsKeyDown(Keys.NumPad4))
+                    _character[0] = (Character)characterManager.CreateObject(3);
+                else if (keyboardState.IsKeyDown(Keys.NumPad5))
+                    _character[0] = (Character)characterManager.CreateObject(4);
+                else if (keyboardState.IsKeyDown(Keys.NumPad6))
+                    _character[0] = (Character)characterManager.CreateObject(5);
+                else if (keyboardState.IsKeyDown(Keys.NumPad7))
+                    _character[0] = (Character)characterManager.CreateObject(6);
+                else if (keyboardState.IsKeyDown(Keys.NumPad8))
+                    _character[0] = (Character)characterManager.CreateObject(7);
+
+
+                _map.UpdateKeyboard(gameTime);
                 _map.Update(gameTime);
 
                 foreach (Character c in _character)

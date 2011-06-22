@@ -62,6 +62,9 @@ namespace MyFirstApp
             _prototype[6] = new Character();
             _prototype[6].Init(contentManager, 8, "Running//");
             ((Character)_prototype[6]).nDelay = 8;
+            _prototype[7] = new Character();
+            _prototype[7].Init(contentManager, 8, "Fire//");
+            ((Character)_prototype[7]).nDelay = 8;
         }
         #endregion
     }
