@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Xml;
 
 namespace MyFirstApp
 {
@@ -25,6 +26,7 @@ namespace MyFirstApp
         private string[] _MenuText;
         SpriteFont menuFont;
         private KeyboardState oldKeyboardState;
+        private Texture2D ttBackground;
         #endregion
 
         #region 2 - Các đặc tính
@@ -48,7 +50,7 @@ namespace MyFirstApp
         #region 3 - Các phương thức khởi tạo
         public void Init(ContentManager Content)
         {
-            //_authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";
+            //_authors = "0812515 - Phan Nhat Tien\r\n0812527 - Huynh Cong Toan";            
             nSelection = 10;
             _MenuText = new string[nSelection];
             for (int i = 0; i < _MenuText.Length; ++i)
@@ -68,15 +70,17 @@ namespace MyFirstApp
             {
                 _sprite[i] = new MySprite(ttMenu, 200, i * 55 - 100, _MenuWidth, _MenuHeight);
             }
-
+            ttBackground = Content.Load<Texture2D>(@"Menu\background02");
             menuFont = Content.Load<SpriteFont>(@"Font\MenuFont");
         }
         #endregion
 
         #region 4 - Các phương thức xử lý
-
-        public void ShowMenu(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //Draw background            
+            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
+            //Draw menu
             foreach (MySprite sprite in _sprite)
                 sprite.Draw(gameTime, spriteBatch, Color.White, false);
 
@@ -87,14 +91,13 @@ namespace MyFirstApp
             for (int i = nSelection / 2; i < nSelection; ++i)
             {
                 spriteBatch.DrawString(menuFont, _MenuText[i], new Vector2(230, i * 55 - 95), Color.White);
-            }
-        }
-        public void ShowBackground(ContentManager Content, SpriteBatch spriteBatch)
-        {
-            Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background02");
-            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
-
-        }
+            }            
+            //Draw some instructions
+            spriteBatch.DrawString(Game1.gameFont, 
+                "Choose any stage that has been unlocked\n"
+                + "Press Backspace to return to main menu", 
+                new Vector2(20, 50), Color.YellowGreen);
+        }        
         public void UpdateKeyboard(ContentManager Content, ref Map map)
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
@@ -129,7 +132,7 @@ namespace MyFirstApp
             if (TestKeypress(Keys.Left) && curMenuIdx >= 5)
             {
                 _sprite[curMenuIdx].texture2d = ttMenu;
-                _sprite[curMenuIdx-5].texture2d = ttSelectedMenu;
+                _sprite[curMenuIdx - 5].texture2d = ttSelectedMenu;
                 curMenuIdx -= 5;
             }
             if (TestKeypress(Keys.Right) && curMenuIdx < 5)
@@ -138,9 +141,13 @@ namespace MyFirstApp
                 _sprite[curMenuIdx + 5].texture2d = ttSelectedMenu;
                 curMenuIdx += 5;
             }
-            if (TestKeypress(Keys.Enter))
+            else if (TestKeypress(Keys.Enter))
             {
                 ProcessMenu(Content, ref map);
+            }
+            else if (TestKeypress(Keys.Back))
+            {
+                Game1.bLoadGame = false;
             }
             oldKeyboardState = newKeyboardState;
         }
@@ -161,6 +168,103 @@ namespace MyFirstApp
                 return true;
             return false;
         }
+        /**********************Tien******************************/
+        public static string StageName;//Ten cai stage 
+        public static int Unlock;//Coi stage co dang chay hay khong
+        public int _scoreMax = 0;//Xac dinh diem so cua mang choi 
+        string[] _fileNameLoadXML;// = Directory.GetFiles(@"\Content\Maingame\SaveGame\Load.xml");//Lay ten file xml
+        public ContentManager _content;//Lay ten state dung de load len 
+        /**********************Tien******************************/
+
+        /**********************Tien******************************/
+        public void LoadFileXML(string fileName, ref Map map)
+        {
+
+            //Doc ten file xml
+            XmlTextReader rdXml = new XmlTextReader(fileName);
+            while (rdXml.Read())
+            {
+                switch (rdXml.Name)
+                {
+                    //Neu la node diem thi lay ra so diem nguoi choi
+                    case "score":
+                        _scoreMax = rdXml.ReadElementContentAsInt();
+                        break;
+                    case "map1":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 1);
+                        }
+                        break;
+                    case "map2":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 2);
+                        };
+                        break;
+                    case "map3":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 3);
+                        }
+                        break;
+                    case "map4":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 4);
+                        }
+                        break;
+                    case "map5":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 5);
+                        }
+                        break;
+                    case "map6":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 6);
+                        }
+                        break;
+                    case "map7":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 7);
+                        }
+                        break;
+                    case "map8":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 8);
+                        }
+                        break;
+                    case "map9":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 9);
+                        }
+                        break;
+                    case "map10":
+                        Unlock = rdXml.ReadElementContentAsInt();
+                        if (Unlock == 1)
+                        {
+                            map.ReadMap(_content, 10);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }       
         #endregion
     }
 }

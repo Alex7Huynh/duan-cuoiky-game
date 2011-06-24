@@ -21,7 +21,7 @@ namespace MyFirstApp
         int _MenuWidth = 150;
         int _MenuHeight = 50;
         private Texture2D[] ttMenu, ttSelectedMenu;
-        private string[] _MenuText = { "New game", "Load game", "Option", "Exit" };
+        private string[] _MenuText = { "New game", "Load game", "Mute", "Exit" };
         private string[] _Guru = { "Play new game", "Load a stage you unlocked ", "Mute", "Exit" };
         private string _authors;
         SpriteFont menuFont;
@@ -72,7 +72,7 @@ namespace MyFirstApp
 
             spriteBatch.DrawString(menuFont, _MenuText[0], new Vector2(20, 205), Color.White);
             spriteBatch.DrawString(menuFont, _MenuText[1], new Vector2(20, 305), Color.White);
-            spriteBatch.DrawString(menuFont, _MenuText[2], new Vector2(40, 405), Color.White);
+            spriteBatch.DrawString(menuFont, _MenuText[2], new Vector2(50, 405), Color.White);
             spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(60, 505), Color.White);
 
             spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);

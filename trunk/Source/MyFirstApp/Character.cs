@@ -17,8 +17,18 @@ namespace MyFirstApp
     public class Character : VisibleGameEntity
     {
         #region 1 - Các thuộc tính
+        enum State
+        {
+            Walking,
+            Jumping
+        }
+        State mCurrentState = State.Walking;
         public int nDelay;
         protected int iDelay = 0;
+        private KeyboardState oldKeyboardState;
+        private float DelayStandStill = 0;
+        private float DelayJump = 0;
+        private int StartingPosition;
         #endregion
 
         #region 2 - Các đặc tính
@@ -26,7 +36,20 @@ namespace MyFirstApp
         #endregion
 
         #region 3 - Các phương thức khởi tạo
+        public override bool Init(ContentManager Content, int n, string strResource)
+        {
+            _nsprite = 1;
+            _sprite = new MySprite[_nsprite];
+            Texture2D[] texture2D;
 
+            texture2D = new Texture2D[n];
+            for (int i = 0; i < n; i++)
+                texture2D[i] = Content.Load<Texture2D>(@"X/" + strResource + i.ToString("00"));
+
+            _sprite[0] = new MySprite(texture2D, 0.0f, 0.0f, texture2D[0].Width, texture2D[0].Height);
+
+            return true;
+        }
         #endregion
 
         #region 4 - Các phương thức xử lý
@@ -42,21 +65,8 @@ namespace MyFirstApp
 
             return newObject;
         }
-        public override bool Init(ContentManager Content, int n, string strResource)
-        {
-            _nsprite = 1;
-            _sprite = new MySprite[_nsprite];
-            Texture2D[] texture2D;
 
-            texture2D = new Texture2D[n];
-            for (int i = 0; i < n; i++)
-                texture2D[i] = Content.Load<Texture2D>(@"X/" + strResource + i.ToString("00"));
 
-            _sprite[0] = new MySprite(texture2D, 0.0f, 0.0f, texture2D[0].Width, texture2D[0].Height);
-
-            return true;
-        }
-        private KeyboardState oldKeyboardState;
         private bool TestKeypress(Keys theKey)
         {
             if (Keyboard.GetState().IsKeyUp(theKey)
@@ -64,40 +74,77 @@ namespace MyFirstApp
                 return true;
             return false;
         }
+
         public override void Update(GameTime gameTime)
         {
+            DelayStandStill += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            DelayJump += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (DelayStandStill > 0.5)
+            {
+                _sprite[0].ResetIndex(0);
+                DelayStandStill = 0;
+            }
             KeyboardState newKeyboardState = Keyboard.GetState();
             //Demo moving
             if (newKeyboardState.IsKeyDown(Keys.Up))
-                Y -= 24;
+                Y -= 12;
             if (newKeyboardState.IsKeyDown(Keys.Down))
-                Y += 24;
-            //Flip texture
-            if (newKeyboardState.IsKeyDown(Keys.Left))
-                spriteEffect = SpriteEffects.FlipHorizontally;
-            if (newKeyboardState.IsKeyDown(Keys.Right))
-                spriteEffect = SpriteEffects.None;
+                Y += 12;
             //Demo health bar
             if (newKeyboardState.IsKeyDown(Keys.Insert))
                 GlobalSetting.CurrentHealth++;
             if (newKeyboardState.IsKeyDown(Keys.Delete))
-                GlobalSetting.CurrentHealth--;            
+                GlobalSetting.CurrentHealth--;
             //Main process
             if (iDelay == 0)
             {
-                int i;
-                
-                if (newKeyboardState.IsKeyDown(Keys.Z))
+                /*if (newKeyboardState.IsKeyDown(Keys.Z))
                 {
-                    for (i = 0; i < _nsprite; i++)
+                    for (int i = 0; i < _nsprite; i++)
                     {
                         _sprite[i].Update(gameTime);
-                        _sprite[i].ResetIndex(3);
+                        _sprite[i].ResetIndexOver(3);
                     }
+                }*/
+                if (newKeyboardState.IsKeyDown(Keys.Left))
+                {
+                    spriteEffect = SpriteEffects.FlipHorizontally;
+                    _sprite[0].Update(gameTime);
+                    _sprite[0].ResetIndexOver(1);
+                    if ((Map.CellPassed == 0 && GlobalSetting.XPos.X >= 0)
+                        || Map.CellPassed < GlobalSetting.GetXCell().Y + Map.CellPassed - 10)
+                        X -= 7;
                 }
-                _sprite[0].Update(gameTime);
-                _sprite[0].ResetIndex(1);                
-            }
+                else if (newKeyboardState.IsKeyDown(Keys.Right))
+                {
+                    spriteEffect = SpriteEffects.None;
+                    _sprite[0].Update(gameTime);
+                    _sprite[0].ResetIndexOver(1);
+                    if ((Map.CellPassed == GlobalSetting.GetMaxCellPassed()
+                        && GlobalSetting.XPos.X < GlobalSetting.GameWidth - _sprite[0].Width)
+                        || Map.CellPassed > GlobalSetting.GetXCell().Y + Map.CellPassed - 10)
+                        X += 7;
+                }
+
+                if (newKeyboardState.IsKeyDown(Keys.X))
+                {
+                    mCurrentState = State.Jumping;
+                    StartingPosition = 0;
+                }
+            }            
+            //Move up if jumping
+            if (mCurrentState == State.Jumping)
+                if (StartingPosition < 100)
+                {
+                    Y -= 10;
+                    StartingPosition += 10;
+                }
+                else
+                {
+                    mCurrentState = State.Walking;
+                }
+            //Update some infos
             iDelay = (iDelay + 1) % nDelay;
             GlobalSetting.XPos = new Vector2(X, Y);
             oldKeyboardState = newKeyboardState;
@@ -109,40 +156,31 @@ namespace MyFirstApp
                 //new Vector2(_sprite[0].x, _sprite[0].y),
                 new Vector2(X, Y),
                 new Rectangle(0, 0, _sprite[0].Width, _sprite[0].Height),
-                Color.White, 0f, Vector2.Zero, 1.0f, spriteEffect, 1f);        
+                Color.White, 0f, Vector2.Zero, 1.0f, spriteEffect, 1f);
 
             int a = (int)(X / Map.CellSize);
             int b = (int)(Y / Map.CellSize);
             spriteBatch.DrawString(Game1.gameFont, ""
                 + "\r\niDelay " + iDelay
+                + "\r\nDelayStandStill " + DelayStandStill
+                + "\r\nDelayJump " + DelayJump
                 + "\r\na&b " + a + "   " + b
                 + "\r\nX&Y " + X + "   " + Y,
-                new Vector2(20, 20), Color.Blue);
+                new Vector2(400, 20), Color.Blue);
         }
-        private MouseState newMouseState;
-        private MouseState oldMouseState;
-        private bool TestMousepress()
+        private void Jump()
         {
-            if (oldMouseState.LeftButton == ButtonState.Released
-                && newMouseState.LeftButton == ButtonState.Pressed)
-                return true;
-            return false;
-        }
-        public void UpdateMouse()
-        {
-            MouseState mstate = Mouse.GetState();
-            newMouseState = mstate;
-
-            if (!TestMousepress())
+            if (mCurrentState != State.Jumping)
             {
-                oldMouseState = newMouseState;
-                return;
+                mCurrentState = State.Jumping;
+                /*mStartingPosition = Position;
+                mDirection.Y = MOVE_UP;
+                mSpeed = new Vector2(WIZARD_SPEED, WIZARD_SPEED);*/
             }
+        }
+        private void UpdateJump(KeyboardState aCurrentKeyboardState)
+        {
 
-            _sprite[0].x = mstate.X - (mstate.X % Map.CellSize);
-            _sprite[0].y = mstate.Y - (mstate.Y % Map.CellSize);
-            //_sprite[0].ResetIndex();
-            oldMouseState = newMouseState;
         }
         #endregion
     }

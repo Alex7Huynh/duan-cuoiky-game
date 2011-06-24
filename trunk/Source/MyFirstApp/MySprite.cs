@@ -24,7 +24,7 @@ namespace MyFirstApp
         private float _y;
         private int _width;
         private int _height;
-        private bool Alive;        
+        private bool Alive;
         protected int _itexture2d;
         Keys[] prevKeys = new Keys[0];
         #endregion
@@ -92,7 +92,7 @@ namespace MyFirstApp
             Alive = true;
             itexture2d = 0;
             screenSize = new Vector2(rWidth, rHeight);
-        }        
+        }
         #endregion
 
         #region 4 - Các phương thức xử lý
@@ -130,10 +130,10 @@ namespace MyFirstApp
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, bool bFixSize)
         {
-            if(bFixSize == true)
-                spriteBatch.Draw(_texture2d[_itexture2d], new Vector2(_x, _y), rColor);           
+            if (bFixSize == true)
+                spriteBatch.Draw(_texture2d[_itexture2d], new Vector2(_x, _y), rColor);
             else
-                spriteBatch.Draw(_texture2d[_itexture2d], new Rectangle((int)_x, (int)_y, _width, _height), rColor);           
+                spriteBatch.Draw(_texture2d[_itexture2d], new Rectangle((int)_x, (int)_y, _width, _height), rColor);
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, Vector2 position, Rectangle rec)
         {
@@ -143,18 +143,23 @@ namespace MyFirstApp
             Rectangle rRec, Color rColor, float rRoation, Vector2 rOrigin, float rScale,
             SpriteEffects rEffect, float rDepth)
         {
-            spriteBatch.Draw(_texture2d[_itexture2d], rPosition, rRec, rColor, 
+            spriteBatch.Draw(_texture2d[_itexture2d], rPosition, rRec, rColor,
                 rRoation, rOrigin, rScale, rEffect, rDepth);
+            spriteBatch.DrawString(Game1.gameFont, _itexture2d.ToString(), new Vector2(600, 100), Color.Blue);
         }
         public bool Contain(int rX, int rY)
         {
             Rectangle rec = new Rectangle((int)_x, (int)_y, _width, _height);
-            return rec.Contains(new Point(rX,rY));
+            return rec.Contains(new Point(rX, rY));
+        }
+        public void ResetIndexOver(int StartIndex)
+        {
+            if (_itexture2d == _ntexture2d - 1)
+                _itexture2d = StartIndex;
         }
         public void ResetIndex(int StartIndex)
         {
-            if(_itexture2d == _ntexture2d-1)
-                _itexture2d = StartIndex;
+            _itexture2d = StartIndex;
         }
         #endregion
     }
