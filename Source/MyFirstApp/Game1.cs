@@ -45,8 +45,8 @@ namespace MyFirstApp
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-
+            Content.RootDirectory = "Content";            
+            
             //TargetElapsedTime = TimeSpan.FromSeconds(1 / 30.0);            
         }
 
@@ -105,7 +105,7 @@ namespace MyFirstApp
             _map = new Map();
             _map.Init(this.Content, 1, "Tiles");
             _map.ReadMap(this.Content, 1);
-
+            
             //_nVisibleGameEntity = _nCharacter + _nMap;
 
             //_gameEntity = new List<VisibleGameEntity>();
@@ -159,28 +159,25 @@ namespace MyFirstApp
                     _character[0] = (Character)characterManager.CreateObject(5);
                 else if (keyboardState.IsKeyDown(Keys.NumPad7))
                     _character[0] = (Character)characterManager.CreateObject(6);
-                //else if (keyboardState.IsKeyDown(Keys.NumPad8))
-                //    _character[0] = (Character)characterManager.CreateObject(7);
-
 
                 _map.UpdateKeyboard(gameTime);
                 _map.Update(gameTime);
 
                 foreach (Character c in _character)
                 {
-                    c.Update(gameTime);
-                    //c.UpdateMouse();
+                    c.Update(gameTime);                    
                 }
             }
             else if (bLoadGame)
             {
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
-                //gameLoading.UpdateMouse(this.Content, ref _map);
+                string XMLPath = Content.RootDirectory + @"\Maingame\Load.xml";
+                //gameLoading.LoadFileXML(XMLPath, ref _map);
+                
             }
             else
             {
                 mainMenu.UpdateKeyboard();
-                //mainMenu.UpdateMouse(ref bMute, mainTheme);
             }
 
             base.Update(gameTime);
@@ -220,8 +217,9 @@ namespace MyFirstApp
             }
             else if (bLoadGame)
             {
-                gameLoading.ShowBackground(this.Content, spriteBatch);
-                gameLoading.ShowMenu(gameTime, spriteBatch);
+                //gameLoading.ShowBackground(this.Content, spriteBatch);
+                //gameLoading.ShowMenu(gameTime, spriteBatch);
+                gameLoading.Draw(gameTime, spriteBatch);
             }
             else
             {

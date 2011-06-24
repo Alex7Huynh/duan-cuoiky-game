@@ -17,30 +17,17 @@ namespace MyFirstApp
 {
     public class Map : VisibleGameEntity
     {
-        #region 1 - Các thuộc tính
-        //private int _pixelMove;
+        #region 1 - Các thuộc tính        
         private Rectangle _rec;
         private int _DelayTime;
-        private int _CellPassed;
+        public static int CellPassed;
         private char[,] _map;
         private Texture2D _background;
-        private float oneSecondTimer = 0;//T
-        public static int CellSize;//Kit thuot o
-        public static string StageName;//Ten cai stage 
-        public static int Unlock;//Coi stage co dang chay hay khong
-        /**********************Tien******************************/
-        public int _scoreMax = 0;//Xac dinh diem so cua mang choi 
-        string[] _fileNameLoadXML = Directory.GetFiles(@"\Maingame\SaveGame\Load.xml");//Lay ten file xml
-        public ContentManager _content;//Lay ten state dung de load len 
-        /**********************Tien******************************/
+        private float oneSecondTimer = 0;
+        public static int CellSize;
         #endregion
 
-        #region 2 - Các đặc tính
-        /*public int PixelMove
-        {
-            get { return _pixelMove; }
-            set { _pixelMove = value; }
-        }*/
+        #region 2 - Các đặc tính        
         public Rectangle Rec
         {
             get { return _rec; }
@@ -64,7 +51,7 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public override bool Init(ContentManager Content, int n, string strResource)
         {
-            _CellPassed = 0;
+            CellPassed = 0;
             //_pixelMove = 10;
             _DelayTime = 0;
             _rec = new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight);
@@ -129,58 +116,72 @@ namespace MyFirstApp
             //Delay one second - time count up
             oneSecondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Collision Dectection
-            if (CanGetCoin(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            if (CanGetCoin(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
                 GlobalSetting.Coin++;
                 MySong.PlaySound(MySong.ListSound.GetCoin);
             }
-            if (CanGetQuestionCoin(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            if (CanGetQuestionCoin(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
                 GlobalSetting.Coin++;
                 MySong.PlaySound(MySong.ListSound.GetCoin);
             }
-            if (CanGetHurt(new Vector2(XCell.X, XCell.Y + _CellPassed)))
+            if (CanGetHurt(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
-                GlobalSetting.CurrentHealth--;
-                MySong.PlaySound(MySong.ListSound.Damaged);
+                if (oneSecondTimer > 1)
+                {
+                    GlobalSetting.CurrentHealth -= 10;
+                    GlobalSetting.CurrentHealth = (int)MathHelper.Clamp(GlobalSetting.CurrentHealth, 0, 100);
+                    MySong.PlaySound(MySong.ListSound.Damaged);
+                    oneSecondTimer = 0;
+                }
+
             }
             //Keyboard Process
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 //Top right cell
-                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed]
-                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed] <= '_'
-                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + _CellPassed] != 'H')
+                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed]
+                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed] <= '_'
+                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X, (int)XCell.Y + 2 + _CellPassed))
+                if (CanPass((int)XCell.X, (int)XCell.Y + 2 + CellPassed))
                     return;
                 //Bottom right cell
-                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed]
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed] <= '_'
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed] != 'H')
+                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed]
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed] <= '_'
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X + 1, (int)XCell.Y + 2 + _CellPassed))
+                if (CanPass((int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed))
                     return;
-                _CellPassed++;
+
+                if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 < Map.CellPassed)
+                    return;
+
+                CellPassed++;
             }
             else if (keyboardState.IsKeyDown(Keys.Left))
             {
                 //Top left cell
-                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed]
-                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed] <= '_'
-                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + _CellPassed] != 'H')
+                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed]
+                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] <= '_'
+                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X, (int)XCell.Y - 1 + _CellPassed))
+                if (CanPass((int)XCell.X, (int)XCell.Y - 1 + CellPassed))
                     return;
                 //Bottom left cell
-                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed]
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed] <= '_'
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed] != 'H')
+                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed]
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] <= '_'
+                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X + 1, (int)XCell.Y - 1 + _CellPassed))
+                if (CanPass((int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed))
                     return;
-                _CellPassed--;
+
+                if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 > GlobalSetting.GetMaxCellPassed())
+                    return;
+
+                CellPassed--;
             }
             else if (keyboardState.IsKeyDown(Keys.Back))
             {
@@ -205,67 +206,93 @@ namespace MyFirstApp
 
             //Xet xem da di den cuoi cua ban do hay chua
             //Neu da den cuoi thi khong the di tiep
-            _CellPassed = (int)MathHelper.Clamp(_CellPassed, 0, (float)(GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height)));
+            CellPassed = (int)MathHelper.Clamp(CellPassed, 0, (float)(GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height)));
             //Get coint
 
         }
         public bool CanPass(int x, int y)
         {
-            if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
-                && _map[x, y] != 'H' //Coin
-                && _map[x, y] != 'L'
-                && _map[x, y] != 'T' && _map[x, y] != 'U'
-                && _map[x, y] != 'V' && _map[x, y] != 'W')
-                return true;
-            return false;
+            try
+            {
+                if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
+                    && _map[x, y] != 'H' //Coin
+                    && _map[x, y] != 'L'
+                    && _map[x, y] != 'T' && _map[x, y] != 'U'
+                    && _map[x, y] != 'V' && _map[x, y] != 'W')
+                    return true;
+                return false;
+            }
+            catch (Exception ex) { return false; }
         }
         public bool CanGetCoin(Vector2 XCell)
         {
-            if (_map[(int)XCell.X, (int)XCell.Y] == 'H')
+            try
             {
-                _map[(int)XCell.X, (int)XCell.Y] = '?';
-                return true;
+                if (_map[(int)XCell.X, (int)XCell.Y] == 'H')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'H')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y + 1] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X + 1, (int)XCell.Y] == 'H')
+                {
+                    _map[(int)XCell.X + 1, (int)XCell.Y] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'H')
+                {
+                    _map[(int)XCell.X + 1, (int)XCell.Y + 1] = '?';
+                    return true;
+                }
+                return false;
             }
-            if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'H')
-            {
-                _map[(int)XCell.X, (int)XCell.Y + 1] = '?';
-                return true;
-            }
-            if (_map[(int)XCell.X + 1, (int)XCell.Y] == 'H')
-            {
-                _map[(int)XCell.X + 1, (int)XCell.Y] = '?';
-                return true;
-            }
-            if (_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'H')
-            {
-                _map[(int)XCell.X + 1, (int)XCell.Y + 1] = '?';
-                return true;
-            }
-            return false;
+            catch (Exception ex) { return false; }
+
         }
         public bool CanGetQuestionCoin(Vector2 XCell)
         {
-            if (_map[(int)XCell.X, (int)XCell.Y] == 'K')
+            try
             {
-                _map[(int)XCell.X, (int)XCell.Y] = 'A';
-                return true;
+                if (_map[(int)XCell.X, (int)XCell.Y] == 'K')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y] = 'A';
+                    return true;
+                }
+                if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'K')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y + 1] = 'A';
+                    return true;
+                }
+                return false;
             }
-            if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'K')
-            {
-                _map[(int)XCell.X, (int)XCell.Y + 1] = 'A';
-                return true;
-            }            
-            return false;
+            catch (Exception ex) { return false; }
         }
         public bool CanGetHurt(Vector2 XCell)
         {
-            if (_map[(int)XCell.X, (int)XCell.Y] == 'L'
-                ||_map[(int)XCell.X + 1, (int)XCell.Y] == 'L'
-                ||_map[(int)XCell.X, (int)XCell.Y + 1] == 'L'
-                ||_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'L')
+            try
             {
-                return true;
+                if (CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y])                    
+                    || CanBeDangerous(_map[(int)XCell.X + 1, (int)XCell.Y])
+                    || CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y + 1])
+                    || CanBeDangerous(_map[(int)XCell.X + 1, (int)XCell.Y + 1])
+                    || CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y]))
+                {
+                    return true;
+                }
+                return false;
             }
+            catch (Exception ex) { return false; }
+        }
+        public bool CanBeDangerous(char letter)
+        {
+            if (letter == 'L' || letter == 'T' || letter == 'U'
+                || letter == 'V' || letter == 'W' || letter == '^' || letter == '_')
+                return true;
+
             return false;
         }
         public override void Update(GameTime gameTime)
@@ -291,10 +318,10 @@ namespace MyFirstApp
             for (i = 0; i < GlobalSetting.MapRows; ++i)
                 for (j = 0; j < width; ++j)
                 {
-                    if (_map[i, j + _CellPassed] == '?')
+                    if (_map[i, j + CellPassed] == '?')
                         continue;
-                    else if ('A' <= _map[i, j + _CellPassed] && _map[i, j + _CellPassed] <= '_')
-                        cellIndex = _map[i, j + _CellPassed] - 65;
+                    else if ('A' <= _map[i, j + CellPassed] && _map[i, j + CellPassed] <= '_')
+                        cellIndex = _map[i, j + CellPassed] - 65;
                     else
                         continue;
 
@@ -313,122 +340,23 @@ namespace MyFirstApp
             Vector2 XCell = new Vector2(
                 GlobalSetting.XPos.Y / CellSize,
                 GlobalSetting.XPos.X / CellSize);
-            int MaxCellPassed = GlobalSetting.MapCols
-                - (int)(GlobalSetting.GameWidth / Map.CellSize) - 1;
-            if (_DelayTime++ < 900)
-                spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
-                + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress X to jump and Space to shoot"
-                + "\r\nClick mouse to teleport Megario"
-                + "\r\n_CellPassed" + _CellPassed
-                + "\r\n totalSeconds" + totalSeconds
-                + "\r\n oneSecondTimer" + oneSecondTimer
-                + "\r\n MaxCellPassed" + MaxCellPassed
-                + "\r\n Coin" + _map[18, 10]
-                + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y]
-                + "\r\n Coin" + _map[(int)XCell.X + 1, (int)XCell.Y]
-                + "\r\n Coin" + _map[(int)XCell.X, (int)XCell.Y + 1]
-                + "\r\n Coin" + _map[(int)XCell.X + 1, (int)XCell.Y + 1]
-                + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
-                + "\r\n XCell" + XCell.X + "   " + (XCell.Y + +_CellPassed),
-                new Vector2(20, 100), Color.Blue);
-        }
 
-        /**********************Tien******************************/
-        public void LoadFileXML(string fileName)
-        {
+            //if (_DelayTime++ < 900)
             try
             {
-                //Doc ten file xml
-                XmlTextReader rdXml = new XmlTextReader(fileName);
-                while (rdXml.Read())
-                {
-                    switch (rdXml.Name)
-                    {
-                            //Neu la node diem thi lay ra so diem nguoi choi
-                        case "score":
-                            _scoreMax = rdXml.ReadElementContentAsInt();
-                            break;
-                        case "map1":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 1);
-                            }
-                            break;
-                        case "map2":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 2);
-                            };
-                            break;
-                        case "map3":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 3);
-                            }
-                            break;
-                        case "map4":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 4);
-                            }
-                            break;
-                        case "map5":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 5);
-                            }
-                            break;
-                        case "map6":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 6);
-                            }
-                            break;
-                        case "map7":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 7);
-                            }
-                            break;
-                        case "map8":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 8);
-                            }
-                            break;
-                        case "map9":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 9);
-                            }
-                            break;
-                        case "map10":
-                            Unlock = rdXml.ReadElementContentAsInt();
-                            if (Unlock == 1)
-                            {
-                                ReadMap(_content, 10);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
+                + "\r\nPress Backspace to go back to main menu"
+                + "\r\nPress X to jump and Space to shoot"                
+                + "\r\nCellPassed" + CellPassed
+                + "\r\n totalSeconds" + totalSeconds
+                + "\r\n DelayStandStill" + oneSecondTimer
+                + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()                
+                + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
+                + "\r\n XCell" + XCell.X + "   " + (XCell.Y + CellPassed),
+                new Vector2(20, 50), Color.Blue);
             }
-            catch
-            {
-            }
+            catch (Exception ex) { }
         }
-        /**********************Tien******************************/
         #endregion
     }
 }

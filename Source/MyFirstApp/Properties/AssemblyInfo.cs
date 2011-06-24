@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyFirstApp")]
-[assembly: AssemblyProduct("MyFirstApp")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyTitle("Megario")]
+[assembly: AssemblyProduct("Megario v1.0")]
+[assembly: AssemblyDescription("First XNA Game")]
+[assembly: AssemblyCompany("Toan&Tien")]
 
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]

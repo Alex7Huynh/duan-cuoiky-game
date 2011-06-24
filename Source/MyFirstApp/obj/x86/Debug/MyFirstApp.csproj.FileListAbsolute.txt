@@ -111,3 +111,166 @@ D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-08125
 D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\MyFirstApp.exe
 D:\Thong tin mon hoc\Lap trinh game\TH2008\Thuc hanh\Preview Do an\0812515-0812527\MyFirstApp\obj\x86\Debug\MyFirstApp.pdb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\background01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\NormalButton.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\SelectButton.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\MainTitle.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Tiles.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\08.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\09.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\10.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\11.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\12.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\13.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\14.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\15.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Appear\16.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Damaged\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Damaged\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Damaged\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Damaged\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Damaged\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Disappear\08.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Fire\07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\08.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\09.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Jump\10.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Normal\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Normal\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Normal\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Normal\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Normal\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\00.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\background02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background01.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background02.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background03.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background04.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background05.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background06.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background07.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background08.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background09.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background10.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\XBuster\shot1.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\XBuster\shot2.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\XBuster\shot3.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\XBuster\shot4.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\HealthBar.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\08.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\09.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\10.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\11.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\12.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\13.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\14.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\X\Run\15.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Font\MenuFont.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Font\Instruction.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Font\GameFont.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\01. Assassins of Kings.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\03. The Path of a Kingslayer.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\06. The Lone Survivor.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\09. Easier Said than Killed.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\10. A Watering Hole in the Harbor.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\12. Regicide.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\13. The Wild Hunt.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\15. For a Higher Cause.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\18. The Assassin Looms.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\21. Howl of the White Wolf.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\22. Sorceresses.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\land.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\Old Mario.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\Fire.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\GameOver.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\GetCoin.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\Jump.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\Land.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\Laser.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\SelectMenu.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\Damaged.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\MonsterDamaged.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\wav\MonsterDied.xnb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\01. Assassins of Kings.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\03. The Path of a Kingslayer.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\06. The Lone Survivor.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\09. Easier Said than Killed.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\10. A Watering Hole in the Harbor.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\12. Regicide.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\13. The Wild Hunt.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\15. For a Higher Cause.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\18. The Assassin Looms.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\21. Howl of the White Wolf.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\22. Sorceresses.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\land.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Sound\mp3\Old Mario.wma
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\background01.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\NormalButton.png
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\SelectButton.png
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Menu\MainTitle.png
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Font\MenuFont.spritefont
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background01.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background02.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background03.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background04.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background05.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background06.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background07.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background08.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background09.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Background\background10.jpg
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage01.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage02.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage03.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage04.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage05.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage06.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage07.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage08.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage09.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Stage\Stage10.txt
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\MyFirstApp.exe
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\MyFirstApp.pdb
+E:\LTG_TT\Source\MyFirstApp\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\LTG_TT\Source\MyFirstApp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\LTG_TT\Source\MyFirstApp\obj\x86\Debug\MyFirstApp.exe
+E:\LTG_TT\Source\MyFirstApp\obj\x86\Debug\MyFirstApp.pdb
+E:\LTG_TT\Source\MyFirstApp\bin\x86\Debug\Content\Maingame\Load.xml

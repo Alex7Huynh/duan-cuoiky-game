@@ -29,6 +29,14 @@ namespace MyFirstApp
         {
             return MapCols - (int)(GameWidth / Map.CellSize) - 1;
         }
+        public static Vector2 GetXCell()
+        {
+            Vector2 XCell = new Vector2(
+                GlobalSetting.XPos.Y / Map.CellSize,
+                GlobalSetting.XPos.X / Map.CellSize);
+            return XCell;
+        }
         //public static int MaxCellPassed = MapCols - (int)(GameWidth / Map.CellSize) - 1;
+
     }
 }
