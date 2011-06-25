@@ -17,17 +17,18 @@ namespace MyFirstApp
 {
     public class Map : VisibleGameEntity
     {
-        #region 1 - Các thuộc tính        
+        #region 1 - Các thuộc tính
         private Rectangle _rec;
         private int _DelayTime;
         public static int CellPassed;
         private char[,] _map;
         private Texture2D _background;
         private float oneSecondTimer = 0;
+        private float mapDeLayTime = 0;
         public static int CellSize;
         #endregion
 
-        #region 2 - Các đặc tính        
+        #region 2 - Các đặc tính
         public Rectangle Rec
         {
             get { return _rec; }
@@ -79,6 +80,7 @@ namespace MyFirstApp
         /// <param name="IDStage"></param>
         public void ReadMap(ContentManager Content, int IDStage)
         {
+            GlobalSetting.Coin = 0;            
             _map = new char[GlobalSetting.MapRows, GlobalSetting.MapCols];
             System.IO.StreamReader file =
                 new System.IO.StreamReader(
@@ -115,16 +117,27 @@ namespace MyFirstApp
                 GlobalSetting.XPos.X / CellSize);
             //Delay one second - time count up
             oneSecondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            mapDeLayTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Collision Dectection
             if (CanGetCoin(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
                 GlobalSetting.Coin++;
                 MySong.PlaySound(MySong.ListSound.GetCoin);
             }
+            if (CanGetStar(new Vector2(XCell.X, XCell.Y + CellPassed)))
+            {
+                GlobalSetting.Coin += 5;
+                MySong.PlaySound(MySong.ListSound.GetCoin);
+            }
             if (CanGetQuestionCoin(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
                 GlobalSetting.Coin++;
                 MySong.PlaySound(MySong.ListSound.GetCoin);
+            }
+            if (CanBeHealed(new Vector2(XCell.X, XCell.Y + CellPassed)))
+            {
+                if(GlobalSetting.CurrentHealth < 100)
+                    GlobalSetting.CurrentHealth++;
             }
             if (CanGetHurt(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
@@ -159,7 +172,11 @@ namespace MyFirstApp
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 < Map.CellPassed)
                     return;
 
-                CellPassed++;
+                if (mapDeLayTime > 0.08)
+                {
+                    CellPassed++;
+                    mapDeLayTime = 0;
+                }
             }
             else if (keyboardState.IsKeyDown(Keys.Left))
             {
@@ -181,11 +198,18 @@ namespace MyFirstApp
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 > GlobalSetting.GetMaxCellPassed())
                     return;
 
-                CellPassed--;
+                if (mapDeLayTime > 0.08)
+                {
+                    CellPassed--;
+                    mapDeLayTime = 0;
+                }
+                
             }
             else if (keyboardState.IsKeyDown(Keys.Back))
             {
                 Game1.bMainGame = false;
+                MySong.PlaySong(MySong.ListSong.Title);
+                GlobalSetting.MapFlag = true;
             }
             else if (keyboardState.IsKeyDown(Keys.X))
             {
@@ -216,6 +240,7 @@ namespace MyFirstApp
             {
                 if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
                     && _map[x, y] != 'H' //Coin
+                    && _map[x, y] != 'M' //Star
                     && _map[x, y] != 'L'
                     && _map[x, y] != 'T' && _map[x, y] != 'U'
                     && _map[x, y] != 'V' && _map[x, y] != 'W')
@@ -253,6 +278,35 @@ namespace MyFirstApp
             catch (Exception ex) { return false; }
 
         }
+        public bool CanGetStar(Vector2 XCell)
+        {
+            try
+            {
+                if (_map[(int)XCell.X, (int)XCell.Y] == 'M')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X, (int)XCell.Y + 1] == 'M')
+                {
+                    _map[(int)XCell.X, (int)XCell.Y + 1] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X + 1, (int)XCell.Y] == 'M')
+                {
+                    _map[(int)XCell.X + 1, (int)XCell.Y] = '?';
+                    return true;
+                }
+                if (_map[(int)XCell.X + 1, (int)XCell.Y + 1] == 'M')
+                {
+                    _map[(int)XCell.X + 1, (int)XCell.Y + 1] = '?';
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex) { return false; }
+
+        }
         public bool CanGetQuestionCoin(Vector2 XCell)
         {
             try
@@ -271,11 +325,23 @@ namespace MyFirstApp
             }
             catch (Exception ex) { return false; }
         }
+        public bool CanBeHealed(Vector2 XCell)
+        {
+            try
+            {                
+                if (_map[(int)XCell.X, (int)XCell.Y + 2] == 'O'
+                    && _map[(int)XCell.X + 1, (int)XCell.Y + 2] == 'N')
+                   return true;
+
+                return false;
+            }
+            catch (Exception ex) { return false; }
+        }
         public bool CanGetHurt(Vector2 XCell)
         {
             try
             {
-                if (CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y])                    
+                if (CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y])
                     || CanBeDangerous(_map[(int)XCell.X + 1, (int)XCell.Y])
                     || CanBeDangerous(_map[(int)XCell.X, (int)XCell.Y + 1])
                     || CanBeDangerous(_map[(int)XCell.X + 1, (int)XCell.Y + 1])
@@ -295,6 +361,7 @@ namespace MyFirstApp
 
             return false;
         }
+
         public override void Update(GameTime gameTime)
         {
             //for (int i = 0; i < _nsprite; ++i)
@@ -346,11 +413,11 @@ namespace MyFirstApp
             {
                 spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
                 + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress X to jump and Space to shoot"                
+                + "\r\nPress X to jump and Space to shoot"
                 + "\r\nCellPassed" + CellPassed
                 + "\r\n totalSeconds" + totalSeconds
                 + "\r\n DelayStandStill" + oneSecondTimer
-                + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()                
+                + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()
                 + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
                 + "\r\n XCell" + XCell.X + "   " + (XCell.Y + CellPassed),
                 new Vector2(20, 50), Color.Blue);

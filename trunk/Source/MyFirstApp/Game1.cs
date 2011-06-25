@@ -66,7 +66,7 @@ namespace MyFirstApp
             //GameLoading
             gameLoading = new GameLoading();
             gameLoading.Init(this.Content);
-            //Resolution            
+            //Resolution
             graphics.PreferredBackBufferWidth = GlobalSetting.GameWidth;
             graphics.PreferredBackBufferHeight = GlobalSetting.GameHeight;
             graphics.ApplyChanges();
@@ -167,10 +167,20 @@ namespace MyFirstApp
                 {
                     c.Update(gameTime);                    
                 }
+                
             }
             else if (bLoadGame)
             {
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
+                if (bMainGame)
+                {
+                    spriteBatch.Begin();
+                    foreach (Character c in _character)
+                    {
+                        c.Draw(gameTime, spriteBatch);
+                    }
+                    spriteBatch.End();
+                }
                 string XMLPath = Content.RootDirectory + @"\Maingame\Load.xml";
                 //gameLoading.LoadFileXML(XMLPath, ref _map);
                 
@@ -199,6 +209,11 @@ namespace MyFirstApp
                 //    m.Draw(gameTime, spriteBatch);
                 //}
                 //Map
+                if (GlobalSetting.MapFlag)
+                {
+                    _map.ReadMap(Content, 1);
+                    GlobalSetting.MapFlag = false;
+                }
                 _map.Draw(gameTime, spriteBatch);
                 //Character
                 foreach (Character c in _character)

@@ -90,6 +90,7 @@ namespace MyFirstApp
             KeyboardState newKeyboardState = Keyboard.GetState();
             if (TestKeypress(Keys.Down))
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 if (curMenuIdx < 3)
                 {
                     _sprite[curMenuIdx].texture2d = ttMenu;
@@ -104,6 +105,7 @@ namespace MyFirstApp
             }
             if (TestKeypress(Keys.Up))
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 if (curMenuIdx > 0)
                 {
                     _sprite[curMenuIdx].texture2d = ttMenu;

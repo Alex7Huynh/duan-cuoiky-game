@@ -50,8 +50,7 @@ namespace MyFirstApp
                 "18. The Assassin Looms",
                 "21. Howl of the White Wolf",
                 "22. Sorceresses",
-                "land",
-                "Old Mario"};
+                "23. The End is Never the Same"};
 
             lstSound = new List<string>() { 
                 "Damaged",

@@ -24,6 +24,7 @@ namespace MyFirstApp
         public static Vector2 XPos = new Vector2(24 * 10, 24 * 21);
         public static int CurrentHealth = 100;
         public static int Coin = 0;
+        public static bool MapFlag = false;
 
         public static int GetMaxCellPassed()
         {
