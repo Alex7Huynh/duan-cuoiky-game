@@ -96,7 +96,7 @@ namespace MyFirstApp
             spriteBatch.DrawString(Game1.gameFont, 
                 "Choose any stage that has been unlocked\n"
                 + "Press Backspace to return to main menu", 
-                new Vector2(20, 50), Color.YellowGreen);
+                new Vector2(20, 50), Color.Red);
         }        
         public void UpdateKeyboard(ContentManager Content, ref Map map)
         {
@@ -148,6 +148,8 @@ namespace MyFirstApp
             else if (TestKeypress(Keys.Back))
             {
                 Game1.bLoadGame = false;
+                MySong.PlaySong(MySong.ListSong.Title);
+                GlobalSetting.MapFlag = true;
             }
             oldKeyboardState = newKeyboardState;
         }
@@ -159,6 +161,7 @@ namespace MyFirstApp
                 Game1.bLoadGame = false;
                 map.ReadMap(Content, curMenuIdx + 1);
                 MySong.PlaySong(curMenuIdx + 2);
+                GlobalSetting.XPos = new Vector2(24 * 10, 24 * 21);
             }
         }
         private bool TestKeypress(Keys theKey)
