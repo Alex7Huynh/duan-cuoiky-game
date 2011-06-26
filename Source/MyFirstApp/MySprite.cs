@@ -24,7 +24,7 @@ namespace MyFirstApp
         private float _y;
         private int _width;
         private int _height;
-        private bool Alive;
+        private bool alive;       
         protected int _itexture2d;
         Keys[] prevKeys = new Keys[0];
         #endregion
@@ -69,10 +69,10 @@ namespace MyFirstApp
             get { return _height; }
             set { _height = value; }
         }
-        public bool Alive1
+        public bool Alive
         {
-            get { return Alive; }
-            set { Alive = value; }
+            get { return alive; }
+            set { alive = value; }
         }
         protected int itexture2d
         {

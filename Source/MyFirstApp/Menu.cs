@@ -26,6 +26,8 @@ namespace MyFirstApp
         private string _authors;
         SpriteFont menuFont;
         SpriteFont instructionFont;
+        Texture2D ttBackground;
+        Texture2D ttTitle;
         private KeyboardState oldKeyboardState;
         #endregion
 
@@ -59,14 +61,26 @@ namespace MyFirstApp
             _sprite[1] = new MySprite(ttMenu, 10, 300, _MenuWidth, _MenuHeight);
             _sprite[2] = new MySprite(ttMenu, 10, 400, _MenuWidth, _MenuHeight);
             _sprite[3] = new MySprite(ttMenu, 10, 500, _MenuWidth, _MenuHeight);
+
             menuFont = Content.Load<SpriteFont>(@"Font\MenuFont");
             instructionFont = Content.Load<SpriteFont>(@"Font\Instruction");
+
+            ttBackground = Content.Load<Texture2D>(@"Menu\background01");
+            ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
         }
         #endregion
 
         #region 4 - Các phương thức xử lý
-        public void ShowMenu(GameTime gameTime, SpriteBatch spriteBatch)
+        /// <summary>
+        /// Draw background, title, menus, instructions
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
+            spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
+
             foreach (MySprite sprite in _sprite)
                 sprite.Draw(gameTime, spriteBatch, Color.White, false);
 
@@ -76,15 +90,12 @@ namespace MyFirstApp
             spriteBatch.DrawString(menuFont, _MenuText[3], new Vector2(60, 505), Color.White);
 
             spriteBatch.DrawString(instructionFont, _Guru[curMenuIdx], new Vector2(20, 100), Color.White);
-            spriteBatch.DrawString(instructionFont, _authors, new Vector2(GlobalSetting.GameWidth - 270, GlobalSetting.GameHeight - 50), Color.Yellow);
-        }
-        public void ShowBackground(ContentManager Content, SpriteBatch spriteBatch)
-        {
-            Texture2D ttBackground = Content.Load<Texture2D>(@"Menu\background01");
-            Texture2D ttTitle = Content.Load<Texture2D>(@"Menu\MainTitle");
-            spriteBatch.Draw(ttBackground, new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight), Color.White);
-            spriteBatch.Draw(ttTitle, new Rectangle(0, 0, ttTitle.Width, ttTitle.Height), Color.White);
-        }
+            spriteBatch.DrawString(instructionFont, _authors, new Vector2(GlobalSetting.GameWidth - 270, GlobalSetting.GameHeight - 50), Color.Yellow);            
+        }        
+        
+        /// <summary>
+        /// Update keyboard
+        /// </summary>
         public void UpdateKeyboard()
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
@@ -124,6 +135,10 @@ namespace MyFirstApp
             }
             oldKeyboardState = newKeyboardState;
         }
+
+        /// <summary>
+        /// Process if chosen new game, load game, mute or exit
+        /// </summary>
         public void ProcessMenu()
         {
             switch (curMenuIdx)
@@ -132,12 +147,15 @@ namespace MyFirstApp
                     Game1.bMainGame = true;
                     Game1.bLoadGame = false;
                     MySong.PlaySong(MySong.ListSong.Stage1);
+                    GlobalSetting.StartMap = true;
+                    Map.CellPassed = 0;
                     break;
 
                 case 1:
                     Game1.bMainGame = false;
                     Game1.bLoadGame = true;
                     MySong.PlaySong(MySong.ListSong.LoadGame);
+                    GlobalSetting.MapFlag = false;
                     break;
                 case 2:
                     MySong.Mute();
@@ -151,6 +169,12 @@ namespace MyFirstApp
                     break;
             }
         }
+
+        /// <summary>
+        /// Test key pressed
+        /// </summary>
+        /// <param name="theKey"></param>
+        /// <returns></returns>
         private bool TestKeypress(Keys theKey)
         {
             if (Keyboard.GetState().IsKeyUp(theKey)
