@@ -146,10 +146,10 @@ namespace MyFirstApp
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 //Top right cell                
-                if (CanPass((int)XCell.X, (int)XCell.Y + 2 + CellPassed))
+                if (CanNotPass((int)XCell.X, (int)XCell.Y + 2 + CellPassed))
                     return;
                 //Bottom right cell                
-                if (CanPass((int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed))
+                if (CanNotPass((int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed))
                     return;
 
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 < Map.CellPassed)
@@ -168,14 +168,14 @@ namespace MyFirstApp
                 //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] <= '_'
                 //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X, (int)XCell.Y - 1 + CellPassed))
+                if (CanNotPass((int)XCell.X, (int)XCell.Y - 1 + CellPassed))
                     return;
                 //Bottom left cell
                 //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed]
                 //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] <= '_'
                 //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] != 'H')
                 //    return;
-                if (CanPass((int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed))
+                if (CanNotPass((int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed))
                     return;
 
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 > GlobalSetting.GetMaxCellPassed())
@@ -201,16 +201,16 @@ namespace MyFirstApp
             //Get coint
 
         }
-        public bool CanPass(int x, int y)
+        public bool CanNotPass(int x, int y)
         {
             try
             {
                 if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
                     && _map[x, y] != 'H' //Coin
                     && _map[x, y] != 'M' //Star
-                    //&& _map[x, y] != 'L'
-                    //&& _map[x, y] != 'T' && _map[x, y] != 'U'
-                    //&& _map[x, y] != 'V' && _map[x, y] != 'W'
+                    && _map[x, y] != 'L' //Flower
+                    && _map[x, y] != 'T' && _map[x, y] != 'U'
+                    && _map[x, y] != 'V' && _map[x, y] != 'W'
                     )
                     return true;
                 return false;
@@ -381,7 +381,7 @@ namespace MyFirstApp
             {
                 spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
                 + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress X to jump and C to shoot"
+                + "\r\nPress Z to jump up, X to jump over and C to shoot"
                 + "\r\nCellPassed" + CellPassed
                 + "\r\n totalSeconds" + totalSeconds
                 + "\r\n DelayStandStill" + oneSecondTimer

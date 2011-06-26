@@ -4,4 +4,4 @@ Disappear 9 50x80
 Fire 8 50x50
 Jump 11 40x60
 Normal 5 48x48
-Run 8 50x50
+Run 16 50x50
