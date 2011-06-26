@@ -25,9 +25,7 @@ namespace MyFirstApp
         public static int currentStage;
         public static bool bMainGame;
         public static bool bLoadGame;
-        public static bool bExit;
-        //public static int iWidth;
-        //public static int iHeight;
+        public static bool bExit;        
 
         private Menu mainMenu;
         private GameLoading gameLoading;
@@ -38,7 +36,7 @@ namespace MyFirstApp
         private Map _map;
         private CharacterManager characterManager;
         //private MapManager mapManager;        
-        private int _nCharacter;
+        //private int _nCharacter;
         //private int _nMap;
         //private int _nVisibleGameEntity;
 
@@ -83,13 +81,26 @@ namespace MyFirstApp
             characterManager = new CharacterManager();
             characterManager.InitPrototypes(this.Content);
 
-            _nCharacter = 1;
-            _character = new List<Character>();
+            //_nCharacter = 1;
+            //_character = new List<Character>();
 
-            _character.Add(new Character());
-            _character[0] = (Character)characterManager.CreateObject(5);
+            //_character.Add(new Character());
+            /*_character[0] = (Character)characterManager.CreateObject(5);
             _character[0].X = GlobalSetting.XPos.X;
-            _character[0].Y = GlobalSetting.XPos.Y;
+            _character[0].Y = GlobalSetting.XPos.Y;*/
+            GlobalSetting.Megaman = (Character)characterManager.CreateObject(5);
+            GlobalSetting.Megaman.X = GlobalSetting.XPos.X;
+            GlobalSetting.Megaman.Y = GlobalSetting.XPos.Y;
+            Texture2D[] Fire= new Texture2D[1];
+            Fire[0] = Content.Load<Texture2D>(@"XBuster\shot1");
+            GlobalSetting.Shot = new MySprite[5];
+            for (int i = 0; i < 5; ++i)
+            {
+                GlobalSetting.Shot[i] = new MySprite(Fire,
+                GlobalSetting.XPos.X + 24, GlobalSetting.XPos.Y + 24,
+                Fire[0].Width, Fire[0].Height);
+                GlobalSetting.Shot[i].Alive = false;
+            }
             //_character[0].nDelay = 5;
 
             //mapManager = new MapManager();
@@ -163,24 +174,27 @@ namespace MyFirstApp
                 _map.UpdateKeyboard(gameTime);
                 _map.Update(gameTime);
 
-                foreach (Character c in _character)
+                GlobalSetting.Megaman.Update(gameTime);
+                /*foreach (Character c in _character)
                 {
-                    c.Update(gameTime);                    
-                }
+                    c.Update(gameTime);
+                }*/
                 
             }
             else if (bLoadGame)
             {
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
-                if (bMainGame)
+                /*if (bMainGame)
                 {
                     spriteBatch.Begin();
                     foreach (Character c in _character)
                     {
+                        c.X = 24 * 10;
+                        c.Y = 24 * 21;
                         c.Draw(gameTime, spriteBatch);
                     }
                     spriteBatch.End();
-                }
+                }*/
                 string XMLPath = Content.RootDirectory + @"\Maingame\Load.xml";
                 //gameLoading.LoadFileXML(XMLPath, ref _map);
                 
@@ -216,10 +230,11 @@ namespace MyFirstApp
                 }
                 _map.Draw(gameTime, spriteBatch);
                 //Character
-                foreach (Character c in _character)
+                /*foreach (Character c in _character)
                 {
                     c.Draw(gameTime, spriteBatch);
-                }
+                }*/
+                GlobalSetting.Megaman.Draw(gameTime, spriteBatch);
                 //Health Bar
                 Texture2D mHealthBar = Content.Load<Texture2D>(@"X\HealthBar");
                 spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, mHealthBar.Width, 20), new Rectangle(0, 45, mHealthBar.Width, 44), Color.White);
@@ -237,9 +252,8 @@ namespace MyFirstApp
                 gameLoading.Draw(gameTime, spriteBatch);
             }
             else
-            {
-                mainMenu.ShowBackground(this.Content, spriteBatch);
-                mainMenu.ShowMenu(gameTime, spriteBatch);
+            {                
+                mainMenu.Draw(gameTime, spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);

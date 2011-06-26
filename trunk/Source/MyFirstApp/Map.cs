@@ -94,18 +94,10 @@ namespace MyFirstApp
                     _map[i, j] = line[j];
                 i++;
             }
-            InitBackground(Content, IDStage);
-        }
-        /// <summary>
-        /// Ve background
-        /// </summary>
-        /// <param name="Content"></param>
-        /// <param name="IDBackground"></param>
-        public void InitBackground(ContentManager Content, int IDBackground)
-        {
             _background = Content.Load<Texture2D>(@"Maingame\Background\background"
-                + IDBackground.ToString("00"));
+                + IDStage.ToString("00"));            
         }
+       
         /// <summary>
         /// Xu ly khi dung cac vat tren duong di
         /// </summary>
@@ -148,24 +140,15 @@ namespace MyFirstApp
                     MySong.PlaySound(MySong.ListSound.Damaged);
                     oneSecondTimer = 0;
                 }
-
             }
             //Keyboard Process
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                //Top right cell
-                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed]
-                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed] <= '_'
-                //    && _map[(int)XCell.X, (int)XCell.Y + 2 + CellPassed] != 'H')
-                //    return;
+                //Top right cell                
                 if (CanPass((int)XCell.X, (int)XCell.Y + 2 + CellPassed))
                     return;
-                //Bottom right cell
-                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed]
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed] <= '_'
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed] != 'H')
-                //    return;
+                //Bottom right cell                
                 if (CanPass((int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed))
                     return;
 
@@ -210,23 +193,7 @@ namespace MyFirstApp
                 Game1.bMainGame = false;
                 MySong.PlaySong(MySong.ListSong.Title);
                 GlobalSetting.MapFlag = true;
-            }
-            else if (keyboardState.IsKeyDown(Keys.X))
-            {
-                if (oneSecondTimer > 0.5)
-                {
-                    MySong.PlaySound(MySong.ListSound.Jump);
-                    oneSecondTimer = 0;
-                }
-            }
-            else if (keyboardState.IsKeyDown(Keys.C))
-            {
-                if (oneSecondTimer > 0.2)
-                {
-                    MySong.PlaySound(MySong.ListSound.Fire);
-                    oneSecondTimer = 0;
-                }
-            }
+            }           
 
             //Xet xem da di den cuoi cua ban do hay chua
             //Neu da den cuoi thi khong the di tiep
@@ -241,9 +208,10 @@ namespace MyFirstApp
                 if ('A' <= _map[x, y] && _map[x, y] <= '_' //Valid, not '?'
                     && _map[x, y] != 'H' //Coin
                     && _map[x, y] != 'M' //Star
-                    && _map[x, y] != 'L'
-                    && _map[x, y] != 'T' && _map[x, y] != 'U'
-                    && _map[x, y] != 'V' && _map[x, y] != 'W')
+                    //&& _map[x, y] != 'L'
+                    //&& _map[x, y] != 'T' && _map[x, y] != 'U'
+                    //&& _map[x, y] != 'V' && _map[x, y] != 'W'
+                    )
                     return true;
                 return false;
             }
@@ -413,7 +381,7 @@ namespace MyFirstApp
             {
                 spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
                 + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress X to jump and Space to shoot"
+                + "\r\nPress X to jump and C to shoot"
                 + "\r\nCellPassed" + CellPassed
                 + "\r\n totalSeconds" + totalSeconds
                 + "\r\n DelayStandStill" + oneSecondTimer

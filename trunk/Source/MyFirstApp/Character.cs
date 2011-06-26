@@ -22,13 +22,18 @@ namespace MyFirstApp
             Walking,
             Jumping
         }
+       
         State mCurrentState = State.Walking;
         public int nDelay;
         protected int iDelay = 0;
         private KeyboardState oldKeyboardState;
         private float DelayStandStill = 0;
         private float DelayJump = 0;
+        private float DelayShot = 0;
+        private bool Shooting = false;
         private int StartingPosition;
+        //private MySprite shot;
+        //Texture2D[] Fire;
         #endregion
 
         #region 2 - Các đặc tính
@@ -48,6 +53,12 @@ namespace MyFirstApp
 
             _sprite[0] = new MySprite(texture2D, 0.0f, 0.0f, texture2D[0].Width, texture2D[0].Height);
 
+            //texture2D = new Texture2D[1];
+            //texture2D[0] = Content.Load<Texture2D>(@"XBuster\shot1");
+            //shot = new MySprite(texture2D, X, Y, texture2D[0].Width, texture2D[0].Height);
+            //shot = Content.Load<Texture2D>(@"XBuster\shot1");
+            //Fire = new Texture2D[1];
+            //Fire[0] = Content.Load<Texture2D>(@"XBuster\shot1");
             return true;
         }
         #endregion
@@ -62,7 +73,7 @@ namespace MyFirstApp
             newObject.Y = this.Y;
             ((Character)newObject).nDelay = this.nDelay;
             ((Character)newObject).iDelay = 0;
-
+            
             return newObject;
         }
 
@@ -74,12 +85,12 @@ namespace MyFirstApp
                 return true;
             return false;
         }
-
+        int start;
         public override void Update(GameTime gameTime)
         {
             DelayStandStill += (float)gameTime.ElapsedGameTime.TotalSeconds;
             DelayJump += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            DelayShot += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (DelayStandStill > 0.5)
             {
                 _sprite[0].ResetIndex(0);
@@ -97,7 +108,7 @@ namespace MyFirstApp
             if (newKeyboardState.IsKeyDown(Keys.Delete))
                 GlobalSetting.CurrentHealth--;
             //Main process
-            if (iDelay == 0)
+            if (mCurrentState == State.Walking && iDelay == 0)
             {
                 /*if (newKeyboardState.IsKeyDown(Keys.Z))
                 {
@@ -110,6 +121,7 @@ namespace MyFirstApp
                 if (newKeyboardState.IsKeyDown(Keys.Left))
                 {
                     spriteEffect = SpriteEffects.FlipHorizontally;
+                    GlobalSetting.MyFace = GlobalSetting.Face.Left;
                     _sprite[0].Update(gameTime);
                     _sprite[0].ResetIndexOver(1);
                     if ((Map.CellPassed == 0 && GlobalSetting.XPos.X >= 0)
@@ -119,6 +131,7 @@ namespace MyFirstApp
                 else if (newKeyboardState.IsKeyDown(Keys.Right))
                 {
                     spriteEffect = SpriteEffects.None;
+                    GlobalSetting.MyFace = GlobalSetting.Face.Right;
                     _sprite[0].Update(gameTime);
                     _sprite[0].ResetIndexOver(1);
                     if ((Map.CellPassed == GlobalSetting.GetMaxCellPassed()
@@ -128,22 +141,84 @@ namespace MyFirstApp
                 }
 
                 if (newKeyboardState.IsKeyDown(Keys.X))
-                {
+                {                    
                     mCurrentState = State.Jumping;
+                    MySong.PlaySound(MySong.ListSound.Jump);
                     StartingPosition = 0;
+                    start = (int)Y;
+                }
+                if (newKeyboardState.IsKeyDown(Keys.C))
+                {
+                    //GlobalSetting.Megaman = (Character)characterManager.CreateObject(0);
+                    if (DelayShot > 0.2)
+                    {                        
+                        DelayShot = 0;
+                        MySong.PlaySound(MySong.ListSound.Fire);
+                        Shooting = true;
+                        for (int i = 0; i < 5; ++i)
+                            if (!GlobalSetting.Shot[i].Alive)
+                            {
+                                GlobalSetting.Shot[i].Alive = true;
+                                break;
+                            }
+                    }
+                    
                 }
             }            
             //Move up if jumping
-            if (mCurrentState == State.Jumping)
-                if (StartingPosition < 100)
+            if (mCurrentState == State.Jumping && DelayJump > 0.05)
+            {
+                DelayJump = 0;
+                if (StartingPosition <= 180)
                 {
-                    Y -= 10;
+                    X += (GlobalSetting.MyFace == GlobalSetting.Face.Right) ? 10 : -10;
                     StartingPosition += 10;
+                    if (StartingPosition < 90)
+                        Y = start - StartingPosition;
+                    //else if (StartingPosition == 90)
+                        //Y = start - 90 + (StartingPosition - 90);
+                    else if (StartingPosition > 90)
+                        Y = start - 90 + (StartingPosition - 90);
                 }
                 else
-                {
+                {                    
                     mCurrentState = State.Walking;
                 }
+            }
+            //Shooting
+            if (Shooting)
+            {
+                for (int i = 0; i < 5; ++i)
+                {
+                    if (GlobalSetting.Shot[i].x < 0 || 800 < GlobalSetting.Shot[i].x)
+                        GlobalSetting.Shot[i].Alive = false;
+                    else
+                    {
+                        //GlobalSetting.Shot[i].Draw(gameTime, spriteBatch, Color.White, true);
+                        GlobalSetting.Shot[i].x += (GlobalSetting.MyFace == GlobalSetting.Face.Right) ? 10 : -10;                        
+                    }
+
+                }
+                //GlobalSetting.Shot.x += (GlobalSetting.MyFace == GlobalSetting.Face.Right) ? 10 : -10;
+
+                //if (GlobalSetting.Shot.x < 0 || 800 < GlobalSetting.Shot.x)
+                //{
+                //    Shooting = false;
+                //    GlobalSetting.Shot.x = X+24;
+                //    GlobalSetting.Shot.y = Y+24;
+                //}
+                int sum = 0;
+                for (int i = 0; i < 5; ++i)
+                    if (!GlobalSetting.Shot[i].Alive)
+                    {
+                        sum++;
+                        GlobalSetting.Shot[i].x = X + 24;
+                        GlobalSetting.Shot[i].y = Y + 24;
+                    }
+
+                if (sum == 5)
+                    Shooting = false;
+            }
             //Update some infos
             iDelay = (iDelay + 1) % nDelay;
             GlobalSetting.XPos = new Vector2(X, Y);
@@ -152,6 +227,23 @@ namespace MyFirstApp
         SpriteEffects spriteEffect;
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (GlobalSetting.StartMap)
+            {
+                X = 24 * 10;
+                Y = 24 * 21;
+                GlobalSetting.StartMap = false;
+            }
+            if (Shooting)
+            {
+                //GlobalSetting.Shot.Draw(gameTime, spriteBatch, Color.White, true);
+                for (int i = 0; i < 5; ++i)
+                {
+                    if (GlobalSetting.Shot[i].Alive)
+                        GlobalSetting.Shot[i].Draw(gameTime, spriteBatch, Color.White, true);                    
+                }
+                //spriteBatch.Draw(shot, new Rectangle((int)X, (int)Y, shot.Width, shot.Height), Color.White);
+
+            }
             _sprite[0].Draw(gameTime, spriteBatch,
                 //new Vector2(_sprite[0].x, _sprite[0].y),
                 new Vector2(X, Y),

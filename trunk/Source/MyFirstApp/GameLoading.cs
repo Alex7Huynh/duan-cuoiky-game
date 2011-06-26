@@ -161,7 +161,9 @@ namespace MyFirstApp
                 Game1.bLoadGame = false;
                 map.ReadMap(Content, curMenuIdx + 1);
                 MySong.PlaySong(curMenuIdx + 2);
-                GlobalSetting.XPos = new Vector2(24 * 10, 24 * 21);
+                
+                GlobalSetting.StartMap = true;
+                Map.CellPassed = 0;
             }
         }
         private bool TestKeypress(Keys theKey)
