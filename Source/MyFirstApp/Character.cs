@@ -404,7 +404,7 @@ namespace MyFirstApp
 
             int a = (int)(X / Map.CellSize);
             int b = (int)(Y / Map.CellSize);
-            spriteBatch.DrawString(Game1.gameFont, ""
+            /*spriteBatch.DrawString(Game1.gameFont, ""
                 + "\r\niDelay " + iDelay
                 + "\r\nDelayStandStill " + DelayStandStill
                 + "\r\nDelayJump " + DelayJump
@@ -413,7 +413,7 @@ namespace MyFirstApp
                 + "\r\nitexture2d " + _sprite[mCurrentSprite].itexture2d.ToString()
                 + "\r\na&b " + a + "   " + b
                 + "\r\nX&Y " + X + "   " + Y,
-                new Vector2(400, 20), Color.Blue);
+                new Vector2(400, 20), Color.Blue);*/
         }
         private void Jump()
         {

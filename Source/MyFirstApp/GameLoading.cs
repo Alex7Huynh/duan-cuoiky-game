@@ -103,6 +103,7 @@ namespace MyFirstApp
             KeyboardState newKeyboardState = Keyboard.GetState();
             if (TestKeypress(Keys.Down))
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 if (curMenuIdx < nSelection - 1)
                 {
                     _sprite[curMenuIdx].texture2d = ttMenu;
@@ -117,6 +118,7 @@ namespace MyFirstApp
             }
             if (TestKeypress(Keys.Up))
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 if (curMenuIdx > 0)
                 {
                     _sprite[curMenuIdx].texture2d = ttMenu;
@@ -131,12 +133,14 @@ namespace MyFirstApp
             }
             if (TestKeypress(Keys.Left) && curMenuIdx >= 5)
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 _sprite[curMenuIdx].texture2d = ttMenu;
                 _sprite[curMenuIdx - 5].texture2d = ttSelectedMenu;
                 curMenuIdx -= 5;
             }
             if (TestKeypress(Keys.Right) && curMenuIdx < 5)
             {
+                MySong.PlaySound(MySong.ListSound.SelectMenu);
                 _sprite[curMenuIdx].texture2d = ttMenu;
                 _sprite[curMenuIdx + 5].texture2d = ttSelectedMenu;
                 curMenuIdx += 5;

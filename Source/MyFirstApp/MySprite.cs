@@ -145,7 +145,7 @@ namespace MyFirstApp
         {
             spriteBatch.Draw(_texture2d[_itexture2d], rPosition, rRec, rColor,
                 rRoation, rOrigin, rScale, rEffect, rDepth);
-            spriteBatch.DrawString(Game1.gameFont, _itexture2d.ToString(), new Vector2(600, 100), Color.Blue);
+            //spriteBatch.DrawString(Game1.gameFont, _itexture2d.ToString(), new Vector2(600, 100), Color.Blue);
         }
         public bool Contain(int rX, int rY)
         {
