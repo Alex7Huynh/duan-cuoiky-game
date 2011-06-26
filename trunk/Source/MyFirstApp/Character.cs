@@ -124,7 +124,7 @@ namespace MyFirstApp
             return false;
         }
         Vector2 start;
-        int MAX_JUMP = 24 * 9;
+        int MAX_JUMP = 24 * 12;
         int MAX_JUMP_HEIGHT = 200;
         int JumpCount = 0;
         public override void Update(GameTime gameTime)
@@ -139,6 +139,19 @@ namespace MyFirstApp
             //    _sprite[mCurrentSprite].Update(gameTime);
             //    DelayJump = 0;
             //}
+
+            if (mCurrentState != State.JumpUp && (
+                mCurrentState != State.JumpOver && Map.CanDropDown(Map._map,
+                (int)GlobalSetting.GetXCell().X + 2,
+                (int)GlobalSetting.GetXCell().Y + Map.CellPassed)
+                || Map.CanDropDown(Map._map,
+                (int)GlobalSetting.GetXCell().X + 2,
+                (int)GlobalSetting.GetXCell().Y + 1 + Map.CellPassed)))
+            {
+                if (Y < GlobalSetting.GameHeight)
+                    Y += 8;
+            }
+
             if (mCurrentState != State.Walking && DelayShotStand > 0.1)
             {
                 _sprite[mCurrentSprite].Update(gameTime);
@@ -196,7 +209,9 @@ namespace MyFirstApp
                         X += 7;
                 }
                 //Jump up
-                if (newKeyboardState.IsKeyDown(Keys.Z) && newKeyboardState.GetPressedKeys().Length == 1)
+                if (newKeyboardState.IsKeyDown(Keys.Z) 
+                    && newKeyboardState.GetPressedKeys().Length == 1
+                    && _sprite[mCurrentSprite].itexture2d == 0)
                 {
                     mCurrentState = State.JumpUp;
                     MySong.PlaySound(MySong.ListSound.Jump);
@@ -241,11 +256,11 @@ namespace MyFirstApp
                     Y -= 10;
                     JumpCount += 10;
                 }
-                else if (JumpCount < 2 * MAX_JUMP_HEIGHT)
+                /*else if (JumpCount < 2 * MAX_JUMP_HEIGHT)
                 {
                     Y += 10;
                     JumpCount += 10;
-                }
+                }*/
                 else
                 {
                     mCurrentState = State.Walking;
@@ -255,31 +270,66 @@ namespace MyFirstApp
 
             }
             //Process for Jump over
-            if (mCurrentState == State.JumpOver && DelayJump > 0.05)
+            if (mCurrentState == State.JumpOver /*&& DelayJump > 0.05*/)
             {
                 DelayJump = 0;
-                if (StartingPosition < MAX_JUMP)
+                if (!Map.CanNotPass(Map._map,
+                    (int)GlobalSetting.GetXCell().X - 1,
+                    (int)GlobalSetting.GetXCell().Y + Map.CellPassed)
+                    || !Map.CanNotPass(Map._map,
+                    (int)GlobalSetting.GetXCell().X - 1,
+                    (int)GlobalSetting.GetXCell().Y + 1 + Map.CellPassed)
+                    || !Map.CanNotPass(Map._map,
+                    (int)GlobalSetting.GetXCell().X,
+                    (int)GlobalSetting.GetXCell().Y + 2 + Map.CellPassed))
                 {
-                    start.X = start.X + ((GlobalSetting.MyFace == GlobalSetting.Face.Right) ? 12 : -12);
-                    //start.X = X;
-                    X = start.X;
-                    StartingPosition += 12;
-                    if (StartingPosition < MAX_JUMP / 2)
-                        Y = start.Y - StartingPosition;
-                    //else if (StartingPosition == 90)
-                    //Y = start - 90 + (StartingPosition - 90);
-                    else if (StartingPosition > MAX_JUMP / 2)
-                        Y = start.Y + StartingPosition - MAX_JUMP;
+                    if (StartingPosition < MAX_JUMP)
+                    {
+                        //start.X = start.X + ((GlobalSetting.MyFace == GlobalSetting.Face.Right) ? 12 : -12);                        
+                        //X = start.X;
+                        if (mMapIndex % 2 == 0 
+                            && 0 < Map.CellPassed && Map.CellPassed < 265
+                            && GlobalSetting.MyFace == GlobalSetting.Face.Right)
+                            Map.CellPassed++;
 
-                    if (mMapIndex % 2 == 0 && Map.CellPassed > 0)
-                        Map.CellPassed += (GlobalSetting.MyFace == GlobalSetting.Face.Right && Map.CellPassed >= 0) ? 1 : -1;
-                    mMapIndex++;
+                        if (mMapIndex % 2 == 0
+                            && 1 < Map.CellPassed && Map.CellPassed < 265
+                            && GlobalSetting.MyFace == GlobalSetting.Face.Left)
+                            Map.CellPassed--;
+
+                        StartingPosition += 12;
+                        if (StartingPosition < MAX_JUMP / 2)
+                            Y = start.Y - StartingPosition;
+                        //else if (StartingPosition == 90)
+                        //Y = start - 90 + (StartingPosition - 90);
+                        else if (StartingPosition > MAX_JUMP / 2)
+                            Y = start.Y + StartingPosition - MAX_JUMP;
+
+                        //if (mMapIndex % 2 == 0 && Map.CellPassed > 0)
+                        //    Map.CellPassed += (GlobalSetting.MyFace == GlobalSetting.Face.Right && Map.CellPassed >= 0) ? 1 : -1;
+                        mMapIndex++;
+                    }
+                    else
+                    {
+                        mCurrentState = State.Walking;
+                        mMapIndex = 0;
+                    }
                 }
                 else
                 {
-                    mCurrentState = State.Walking;
-                    mMapIndex = 0;
+                    //StartingPosition = MAX_JUMP;
+                    if (Map.CanDropDown(Map._map,
+                (int)GlobalSetting.GetXCell().X + 2,
+                (int)GlobalSetting.GetXCell().Y + Map.CellPassed)
+                || Map.CanDropDown(Map._map,
+                (int)GlobalSetting.GetXCell().X + 2,
+                (int)GlobalSetting.GetXCell().Y + 1 + Map.CellPassed))
+                    {
+                        if (Y < GlobalSetting.GameHeight)
+                            Y += 8;
+                    }
                 }
+
             }
             //Shooting
             if (Shooting)
@@ -326,6 +376,9 @@ namespace MyFirstApp
         SpriteEffects spriteEffect;
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (GlobalSetting.CurrentHealth == 0)
+                return;
+
             if (GlobalSetting.StartMap)
             {
                 X = 24 * 10;
