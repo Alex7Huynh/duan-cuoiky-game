@@ -74,7 +74,7 @@ namespace MyFirstApp
             get { return alive; }
             set { alive = value; }
         }
-        protected int itexture2d
+        public int itexture2d
         {
             get { return _itexture2d; }
             set { _itexture2d = value; }
@@ -160,6 +160,10 @@ namespace MyFirstApp
         public void ResetIndex(int StartIndex)
         {
             _itexture2d = StartIndex;
+        }
+        public bool UpdateOver()
+        {
+            return (_itexture2d == _ntexture2d - 1);
         }
         #endregion
     }

@@ -31,10 +31,10 @@ namespace MyFirstApp
         private GameLoading gameLoading;
 
         //private List<VisibleGameEntity> _gameEntity;
-        private List<Character> _character;
+        //private List<Character> _character;
         //private List<Map> _map;
         private Map _map;
-        private CharacterManager characterManager;
+        //private CharacterManager characterManager;
         //private MapManager mapManager;        
         //private int _nCharacter;
         //private int _nMap;
@@ -78,8 +78,8 @@ namespace MyFirstApp
             bLoadGame = false;
             bExit = false;
 
-            characterManager = new CharacterManager();
-            characterManager.InitPrototypes(this.Content);
+            GlobalSetting.characterManager = new CharacterManager();
+            GlobalSetting.characterManager.InitPrototypes(this.Content);
 
             //_nCharacter = 1;
             //_character = new List<Character>();
@@ -88,7 +88,9 @@ namespace MyFirstApp
             /*_character[0] = (Character)characterManager.CreateObject(5);
             _character[0].X = GlobalSetting.XPos.X;
             _character[0].Y = GlobalSetting.XPos.Y;*/
-            GlobalSetting.Megaman = (Character)characterManager.CreateObject(5);
+            //GlobalSetting.Megaman = (Character)GlobalSetting.characterManager.CreateObject(5);
+            GlobalSetting.Megaman = new Character();
+            GlobalSetting.Megaman.InitSprites(Content);
             GlobalSetting.Megaman.X = GlobalSetting.XPos.X;
             GlobalSetting.Megaman.Y = GlobalSetting.XPos.Y;
             Texture2D[] Fire= new Texture2D[1];
@@ -97,7 +99,7 @@ namespace MyFirstApp
             for (int i = 0; i < 5; ++i)
             {
                 GlobalSetting.Shot[i] = new MySprite(Fire,
-                GlobalSetting.XPos.X + 24, GlobalSetting.XPos.Y + 24,
+                GlobalSetting.XPos.X + 40, GlobalSetting.XPos.Y + 15,
                 Fire[0].Width, Fire[0].Height);
                 GlobalSetting.Shot[i].Alive = false;
             }
@@ -155,7 +157,7 @@ namespace MyFirstApp
                 //    m.UpdateKeyboard(iWidth, iHeight);
                 //    m.Update(gameTime);
                 //}
-                KeyboardState keyboardState = Keyboard.GetState();
+                /*KeyboardState keyboardState = Keyboard.GetState();
                 if (keyboardState.IsKeyDown(Keys.NumPad1))
                     _character[0] = (Character)characterManager.CreateObject(0);
                 else if (keyboardState.IsKeyDown(Keys.NumPad2))
@@ -169,7 +171,7 @@ namespace MyFirstApp
                 else if (keyboardState.IsKeyDown(Keys.NumPad6))
                     _character[0] = (Character)characterManager.CreateObject(5);
                 else if (keyboardState.IsKeyDown(Keys.NumPad7))
-                    _character[0] = (Character)characterManager.CreateObject(6);
+                    _character[0] = (Character)characterManager.CreateObject(6);*/
 
                 _map.UpdateKeyboard(gameTime);
                 _map.Update(gameTime);
@@ -184,17 +186,7 @@ namespace MyFirstApp
             else if (bLoadGame)
             {
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
-                /*if (bMainGame)
-                {
-                    spriteBatch.Begin();
-                    foreach (Character c in _character)
-                    {
-                        c.X = 24 * 10;
-                        c.Y = 24 * 21;
-                        c.Draw(gameTime, spriteBatch);
-                    }
-                    spriteBatch.End();
-                }*/
+                
                 string XMLPath = Content.RootDirectory + @"\Maingame\Load.xml";
                 //gameLoading.LoadFileXML(XMLPath, ref _map);
                 
@@ -235,20 +227,18 @@ namespace MyFirstApp
                     c.Draw(gameTime, spriteBatch);
                 }*/
                 GlobalSetting.Megaman.Draw(gameTime, spriteBatch);
-                //Health Bar
+                //Draw health bar
                 Texture2D mHealthBar = Content.Load<Texture2D>(@"X\HealthBar");
                 spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, mHealthBar.Width, 20), new Rectangle(0, 45, mHealthBar.Width, 44), Color.White);
                 spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, (int)(mHealthBar.Width * ((double)GlobalSetting.CurrentHealth / 100)), 20), new Rectangle(0, 45, mHealthBar.Width, 44), Color.Red);
                 spriteBatch.Draw(mHealthBar, new Rectangle(0, 0, mHealthBar.Width, 20), new Rectangle(0, 0, mHealthBar.Width, 44), Color.White);
-                //
+                //Draw coin
                 spriteBatch.DrawString(Game1.gameFont,
-                    "\r\nCoin = " + GlobalSetting.Coin,
+                    "\r\nCoin = " + GlobalSetting.Coin, 
                     new Vector2(0, 0), Color.White);
             }
             else if (bLoadGame)
-            {
-                //gameLoading.ShowBackground(this.Content, spriteBatch);
-                //gameLoading.ShowMenu(gameTime, spriteBatch);
+            {                
                 gameLoading.Draw(gameTime, spriteBatch);
             }
             else
