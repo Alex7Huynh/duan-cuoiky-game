@@ -188,7 +188,7 @@ namespace MyFirstApp
                 gameLoading.UpdateKeyboard(this.Content, ref _map);
                 
                 string XMLPath = Content.RootDirectory + @"\Maingame\Load.xml";
-                //gameLoading.LoadFileXML(XMLPath, ref _map);
+               // gameLoading.LoadFileXML(XMLPath, ref _map, this.Content);
                 
             }
             else

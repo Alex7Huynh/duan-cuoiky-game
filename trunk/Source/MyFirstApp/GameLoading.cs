@@ -178,7 +178,7 @@ namespace MyFirstApp
         public int _scoreMax = 0;//Xac dinh diem so cua mang choi 
 
         /// <summary>
-        /// Doc file xml de load map len
+        /// Doc file xml de load map tuong ung len
         /// </summary>
         /// <param name="fileName">Ten file xml can doc</param>
         /// <param name="map">Stage tuong ung duoc load len</param>
@@ -268,91 +268,25 @@ namespace MyFirstApp
                     default:
                         break;
                 }
+                rdXml.Close();
             }
         }
         /// <summary>
-        /// Cap nhat file xml
+        /// Cap nhat file xml: thuoc tinh unlock
         /// </summary>
         /// <param name="fileName"> ten file.xml</param>
         /// <param name="map">ten map can cap nhat</param>
         /// <param name="unLock"> gia tri unlock can cap nhat:0 or 1</param>
         public void UpdateUnLock(string fileName, string map, int unLock)
         {
-            XmlTextWriter wtXml = new XmlTextWriter(fileName, Encoding.UTF8);
-            XmlTextReader rdXml = new XmlTextReader(fileName);
-            while (rdXml.Read())
+            XmlDocument doc = new XmlDocument();
+            doc.Load(fileName);
+            XmlElement node = doc.DocumentElement;
+            if (node[map].Name == map)
             {
-                switch (rdXml.Name)
-                {
-                    case "score":
-                        wtXml.WriteString("100");
-                        break;
-                    case "map1":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map2":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map3":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map4":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map5":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map6":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map7":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map8":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map9":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    case "map10":
-                        if (map == rdXml.Name)
-                        {
-                            wtXml.WriteValue(unLock);
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                node[map].InnerXml = unLock.ToString();
             }
-            wtXml.Flush();
-            wtXml.Close();
+            doc.Save(fileName);
         }
         #endregion
     }
