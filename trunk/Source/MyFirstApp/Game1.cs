@@ -157,20 +157,20 @@ namespace MyFirstApp
                 //    m.UpdateKeyboard(iWidth, iHeight);
                 //    m.Update(gameTime);
                 //}
-                /*KeyboardState keyboardState = Keyboard.GetState();
-                if (keyboardState.IsKeyDown(Keys.NumPad1))
+                /*KeyboardState newKeyboardState = Keyboard.GetState();
+                if (newKeyboardState.IsKeyDown(Keys.NumPad1))
                     _character[0] = (Character)characterManager.CreateObject(0);
-                else if (keyboardState.IsKeyDown(Keys.NumPad2))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad2))
                     _character[0] = (Character)characterManager.CreateObject(1);
-                else if (keyboardState.IsKeyDown(Keys.NumPad3))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad3))
                     _character[0] = (Character)characterManager.CreateObject(2);
-                else if (keyboardState.IsKeyDown(Keys.NumPad4))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad4))
                     _character[0] = (Character)characterManager.CreateObject(3);
-                else if (keyboardState.IsKeyDown(Keys.NumPad5))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad5))
                     _character[0] = (Character)characterManager.CreateObject(4);
-                else if (keyboardState.IsKeyDown(Keys.NumPad6))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad6))
                     _character[0] = (Character)characterManager.CreateObject(5);
-                else if (keyboardState.IsKeyDown(Keys.NumPad7))
+                else if (newKeyboardState.IsKeyDown(Keys.NumPad7))
                     _character[0] = (Character)characterManager.CreateObject(6);*/
 
                 _map.UpdateKeyboard(gameTime);

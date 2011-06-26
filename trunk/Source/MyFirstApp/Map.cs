@@ -27,6 +27,8 @@ namespace MyFirstApp
         private float oneSecondTimer = 0;
         private float mapDeLayTime = 0;
         public static int CellSize;
+        private bool bShowInstruction;
+        private KeyboardState oldKeyboardState;
         #endregion
 
         #region 2 - Các đặc tính
@@ -53,6 +55,7 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public override bool Init(ContentManager Content, int n, string strResource)
         {
+            bShowInstruction = false;
             CellPassed = 0;
             //_pixelMove = 10;
             _DelayTime = 0;
@@ -146,8 +149,8 @@ namespace MyFirstApp
                 }
             }
             //Keyboard Process
-            KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Right))
+            KeyboardState newKeyboardState = Keyboard.GetState();
+            if (newKeyboardState.IsKeyDown(Keys.Right))
             {
                 //Top right cell                
                 if (CanNotPass(_map, (int)XCell.X, (int)XCell.Y + 2 + CellPassed))
@@ -165,7 +168,7 @@ namespace MyFirstApp
                     mapDeLayTime = 0;
                 }
             }
-            else if (keyboardState.IsKeyDown(Keys.Left))
+            else if (newKeyboardState.IsKeyDown(Keys.Left))
             {
                 //Top left cell
                 //if ('A' <= _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed]
@@ -192,18 +195,36 @@ namespace MyFirstApp
                 }
 
             }
-            else if (keyboardState.IsKeyDown(Keys.Back))
+            //else if (newKeyboardState.IsKeyDown(Keys.Back))
+            else if (TestKeypress(Keys.Escape))
             {
                 Game1.bMainGame = false;
                 MySong.PlaySong(MySong.ListSong.Title);
                 GlobalSetting.MapFlag = true;
             }
-
-            //Xet xem da di den cuoi cua ban do hay chua
-            //Neu da den cuoi thi khong the di tiep
+            //else if (newKeyboardState.IsKeyDown(Keys.F1))
+            else if (TestKeypress(Keys.F1))
+            {
+                bShowInstruction = !bShowInstruction;
+            }
+            
+            //Nếu đã đến cuối bản đồ thì không thể đi tiếp
             CellPassed = (int)MathHelper.Clamp(CellPassed, 0, (float)(GlobalSetting.MapCols - Math.Ceiling((float)GlobalSetting.GameWidth / _sprite[0].Height)));
-            //Get coint
+            oldKeyboardState = newKeyboardState;
 
+        }
+
+        /// <summary>
+        /// Test key pressed
+        /// </summary>
+        /// <param name="theKey"></param>
+        /// <returns></returns>
+        private bool TestKeypress(Keys theKey)
+        {
+            if (Keyboard.GetState().IsKeyUp(theKey)
+                && oldKeyboardState.IsKeyDown(theKey))
+                return true;
+            return false;
         }
         public static bool CanNotPass(char[,] _map, int x, int y)
         {
@@ -387,7 +408,7 @@ namespace MyFirstApp
                     _sprite[0].Draw(gameTime, spriteBatch,
                         new Vector2(j * CellSize, i * CellSize),
                         new Rectangle(cellIndex * 24, 0, 24, 24),
-                        Color.White, 0.0f, Vector2.Zero, (CellSize / 24), 
+                        Color.White, 0.0f, Vector2.Zero, (CellSize / 24),
                         SpriteEffects.None, 0.0f);
                 }
 
@@ -400,16 +421,21 @@ namespace MyFirstApp
             //if (_DelayTime++ < 900)
             try
             {
-                spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"
-                + "\r\nPress Backspace to go back to main menu"
-                + "\r\nPress Z to jump up, X to jump over and C to shoot"
-                + "\r\nCellPassed" + CellPassed
-                + "\r\n totalSeconds" + totalSeconds
-                + "\r\n DelayStandStill" + oneSecondTimer
-                + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()
-                + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
-                + "\r\n XCell" + XCell.X + "   " + (XCell.Y + CellPassed),
-                new Vector2(20, 50), Color.Blue);
+                if (bShowInstruction)
+                    spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"                    
+                    + "\r\nPress Z to jump up, X to jump over and C to shoot"
+                    + "\r\nPress Esc to go back to main menu"
+                    /*+ "\r\nCellPassed" + CellPassed
+                    + "\r\n totalSeconds" + totalSeconds
+                    + "\r\n DelayStandStill" + oneSecondTimer
+                    + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()
+                    + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
+                    + "\r\n XCell" + XCell.X + "   " + (XCell.Y + CellPassed)*/,
+                    new Vector2(20, 50), Color.Blue);
+                else
+                    spriteBatch.DrawString(Game1.gameFont, "Press F1 to show the control",
+                new Vector2(500, 0), Color.White);
+
             }
             catch (Exception ex) { }
         }
