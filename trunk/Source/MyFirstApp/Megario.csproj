@@ -84,7 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Character.cs" />
+    <Compile Include="Protagonist.cs" />
     <Compile Include="CharacterManager.cs" />
     <Compile Include="Dialog.cs" />
     <Compile Include="EntityManager.cs" />
