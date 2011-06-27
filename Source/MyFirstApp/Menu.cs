@@ -148,6 +148,7 @@ namespace MyFirstApp
                     Game1.bLoadGame = false;
                     MySong.PlaySong(MySong.ListSong.Stage1);
                     GlobalSetting.StartMap = true;
+                    GlobalSetting.IntroductionFlag = true;
                     Map.CellPassed = 0;
                     break;
 
