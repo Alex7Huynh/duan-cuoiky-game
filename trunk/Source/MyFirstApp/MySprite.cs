@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace MyFirstApp
 {
@@ -25,8 +14,7 @@ namespace MyFirstApp
         private int _width;
         private int _height;
         private bool alive;       
-        protected int _itexture2d;
-        Keys[] prevKeys = new Keys[0];
+        protected int _itexture2d;        
         #endregion
 
         #region 2 - Các đặc tính
@@ -96,38 +84,22 @@ namespace MyFirstApp
         #endregion
 
         #region 4 - Các phương thức xử lý
-        public delegate void KeyPressedHandler(object sender, Keys key);
-        public event KeyPressedHandler KeyPressed;
-        public Keys GetNewKeyPressed(Keys[] prevKeys, Keys[] keys)
-        {
-            throw new NotSupportedException("Coding by yourself");
-        }
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
-        {
-            // Get state of the keyboard
-            KeyboardState state = Keyboard.GetState();
-
-            // Do events
-            if (this.KeyPressed != null)
-                this.KeyPressed(this, this.GetNewKeyPressed(
-                    prevKeys, state.GetPressedKeys()));
-            prevKeys = state.GetPressedKeys();
-
-            // Moving with iteraction
-            /*if (state.IsKeyDown(Keys.Left))
-                _x -= 5;
-            else if (state.IsKeyDown(Keys.Right))
-                _x += 5;
-            else if (state.IsKeyDown(Keys.Up))
-                _y -= 5;
-            else if (state.IsKeyDown(Keys.Down))
-                _y += 5;*/
+        {            
             if (_itexture2d < _ntexture2d - 1)
-                _itexture2d++;
-            //else if (_itexture2d == _ntexture2d - 1)
-            //    _itexture2d = 0;
-            //_itexture2d = (_itexture2d + 1) % _ntexture2d;
+                _itexture2d++;            
         }
+        /// <summary>
+        /// Draw (simple)
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="rColor"></param>
+        /// <param name="bFixSize"></param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, bool bFixSize)
         {
             if (bFixSize == true)
@@ -135,32 +107,76 @@ namespace MyFirstApp
             else
                 spriteBatch.Draw(_texture2d[_itexture2d], new Rectangle((int)_x, (int)_y, _width, _height), rColor);
         }
+
+        /// <summary>
+        /// Draw (more complicated)
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="rColor"></param>
+        /// <param name="position"></param>
+        /// <param name="rec"></param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Color rColor, Vector2 position, Rectangle rec)
         {
             spriteBatch.Draw(_texture2d[_itexture2d], position, rec, rColor);
         }
+
+        /// <summary>
+        /// Draw (most complicated)
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="rPosition"></param>
+        /// <param name="rRec"></param>
+        /// <param name="rColor"></param>
+        /// <param name="rRoation"></param>
+        /// <param name="rOrigin"></param>
+        /// <param name="rScale"></param>
+        /// <param name="rEffect"></param>
+        /// <param name="rDepth"></param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 rPosition,
             Rectangle rRec, Color rColor, float rRoation, Vector2 rOrigin, float rScale,
             SpriteEffects rEffect, float rDepth)
         {
             spriteBatch.Draw(_texture2d[_itexture2d], rPosition, rRec, rColor,
-                rRoation, rOrigin, rScale, rEffect, rDepth);
-            //spriteBatch.DrawString(Game1.gameFont, _itexture2d.ToString(), new Vector2(600, 100), Color.Blue);
+                rRoation, rOrigin, rScale, rEffect, rDepth);            
         }
+
+        /// <summary>
+        /// Check if Sprite contains a point
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <returns></returns>
         public bool Contain(int rX, int rY)
         {
             Rectangle rec = new Rectangle((int)_x, (int)_y, _width, _height);
             return rec.Contains(new Point(rX, rY));
         }
+
+        /// <summary>
+        /// Reset _itexture2d to StartIndex if _itexture2d cannot be higher
+        /// </summary>
+        /// <param name="StartIndex"></param>
         public void ResetIndexOver(int StartIndex)
         {
             if (_itexture2d == _ntexture2d - 1)
                 _itexture2d = StartIndex;
         }
+
+        /// <summary>
+        /// Reset _itexture2d to StartIndex
+        /// </summary>
+        /// <param name="StartIndex"></param>
         public void ResetIndex(int StartIndex)
         {
             _itexture2d = StartIndex;
         }
+
+        /// <summary>
+        /// Check if _itexture2d cannot be higher 
+        /// </summary>
+        /// <returns></returns>
         public bool UpdateOver()
         {
             return (_itexture2d == _ntexture2d - 1);

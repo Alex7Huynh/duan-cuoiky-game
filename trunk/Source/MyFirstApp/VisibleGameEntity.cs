@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
+﻿using Microsoft.Xna.Framework.Content;
 
 namespace MyFirstApp
 {
@@ -25,14 +13,24 @@ namespace MyFirstApp
         #endregion
 
         #region 3 - Các phương thức khởi tạo
-
-        #endregion
-
-        #region 4 - Các phương thức xử lý
+        /// <summary>
+        /// Init
+        /// </summary>
+        /// <param name="Content"></param>
+        /// <param name="n"></param>
+        /// <param name="strResource"></param>
+        /// <returns></returns>
         public virtual bool Init(ContentManager Content, int n, string strResource)
         {
             return false;
         }
+        #endregion
+
+        #region 4 - Các phương thức xử lý
+        /// <summary>
+        /// Clone
+        /// </summary>
+        /// <returns></returns>
         public virtual VisibleGameEntity Clone()
         {
             return null;

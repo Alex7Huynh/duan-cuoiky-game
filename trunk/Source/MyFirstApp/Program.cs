@@ -1,5 +1,3 @@
-using System;
-
 namespace MyFirstApp
 {
     static class Program
