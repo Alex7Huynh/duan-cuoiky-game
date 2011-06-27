@@ -27,7 +27,7 @@ namespace MyFirstApp
         public static int MapRows = 25;
 
         public static CharacterManager characterManager;
-        public static Character Megaman;
+        public static Protagonist Megaman;
         public static MySprite[] Shot;
         public static Vector2 XPos = new Vector2(24 * 10, 24 * 21);
         public static int CurrentHealth = 100;

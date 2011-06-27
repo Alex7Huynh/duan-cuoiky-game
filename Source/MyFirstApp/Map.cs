@@ -19,15 +19,20 @@ namespace MyFirstApp
     public class Map : VisibleGameEntity
     {
         #region 1 - Các thuộc tính
-        private Rectangle _rec;
-        private int _DelayTime;
+        private Rectangle _rec;        
         public static int CellPassed;
         public static char[,] _map;
-        private Texture2D _background;
-        private float oneSecondTimer = 0;
-        private float mapDeLayTime = 0;
         public static int CellSize;
+
+        private Texture2D _background;
+        private float _soundDelay = 0;
+        private float _mapDeLay = 0;
+        private float _gameOverDeLay = 0;
+
         private bool bShowInstruction;
+        private bool bGameOver;
+
+        
         private KeyboardState oldKeyboardState;
         #endregion
 
@@ -36,19 +41,14 @@ namespace MyFirstApp
         {
             get { return _rec; }
             set { _rec = value; }
-        }
-        public int DelayTime
-        {
-            get { return _DelayTime; }
-            set { _DelayTime = value; }
-        }
+        }        
         #endregion
 
         #region 3 - Các phương thức khởi tạo
         public Map()
         {
             //_pixelMove = 1;
-            _DelayTime = 0;
+            //_DelayTime = 0;
         }
         #endregion
 
@@ -57,8 +57,8 @@ namespace MyFirstApp
         {
             bShowInstruction = false;
             CellPassed = 0;
-            //_pixelMove = 10;
-            _DelayTime = 0;
+            bGameOver = false;
+            
             _rec = new Rectangle(0, 0, GlobalSetting.GameWidth, GlobalSetting.GameHeight);
             _nsprite = n;
             _sprite = new MySprite[_nsprite];
@@ -110,14 +110,21 @@ namespace MyFirstApp
         /// </summary>
         /// <param name="gameTime"></param>
         public void UpdateKeyboard(GameTime gameTime)
-        {
+        {            
+            //Delay one second - time count up
+            _soundDelay += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _mapDeLay += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(bGameOver)
+                _gameOverDeLay += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (GlobalSetting.CurrentHealth == 0)
+                return;
+
+            //Collision Dectection
             Vector2 XCell = new Vector2(
                 GlobalSetting.XPos.Y / CellSize,
                 GlobalSetting.XPos.X / CellSize);
-            //Delay one second - time count up
-            oneSecondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            mapDeLayTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //Collision Dectection
+
             if (CanGetCoin(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
                 GlobalSetting.Coin++;
@@ -140,63 +147,55 @@ namespace MyFirstApp
             }
             if (CanGetHurt(new Vector2(XCell.X, XCell.Y + CellPassed)))
             {
-                if (oneSecondTimer > 1)
+                if (_soundDelay > 1)
                 {
                     GlobalSetting.CurrentHealth -= 10;
                     GlobalSetting.CurrentHealth = (int)MathHelper.Clamp(GlobalSetting.CurrentHealth, 0, 100);
                     MySong.PlaySound(MySong.ListSound.Damaged);
-                    oneSecondTimer = 0;
+                    _soundDelay = 0;
                 }
             }
             //Keyboard Process
             KeyboardState newKeyboardState = Keyboard.GetState();
             if (newKeyboardState.IsKeyDown(Keys.Right))
             {
-                //Top right cell                
+                //Top right cell - detect collition
                 if (CanNotPass(_map, (int)XCell.X, (int)XCell.Y + 2 + CellPassed))
                     return;
-                //Bottom right cell                
+                //Bottom right cell - detect collition
                 if (CanNotPass(_map, (int)XCell.X + 1, (int)XCell.Y + 2 + CellPassed))
                     return;
 
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 < Map.CellPassed)
                     return;
 
-                if (mapDeLayTime > 0.08)
+                if (_mapDeLay > 0.08)
                 {
                     CellPassed++;
-                    mapDeLayTime = 0;
+                    _mapDeLay = 0;
                 }
             }
             else if (newKeyboardState.IsKeyDown(Keys.Left))
             {
-                //Top left cell
-                //if ('A' <= _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed]
-                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] <= '_'
-                //    && _map[(int)XCell.X, (int)XCell.Y - 1 + CellPassed] != 'H')
-                //    return;
+                //Top left cell - detect collition
                 if (CanNotPass(_map, (int)XCell.X, (int)XCell.Y - 1 + CellPassed))
                     return;
-                //Bottom left cell
-                //if ('A' <= _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed]
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] <= '_'
-                //    && _map[(int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed] != 'H')
-                //    return;
+                //Bottom left cell - detect collition
                 if (CanNotPass(_map, (int)XCell.X + 1, (int)XCell.Y - 1 + CellPassed))
                     return;
 
                 if ((GlobalSetting.GetXCell().Y + CellPassed) - 10 > GlobalSetting.GetMaxCellPassed())
                     return;
 
-                if (mapDeLayTime > 0.08)
+                if (_mapDeLay > 0.08)
                 {
                     CellPassed--;
-                    mapDeLayTime = 0;
+                    _mapDeLay = 0;
                 }
 
             }
             //else if (newKeyboardState.IsKeyDown(Keys.Back))
-            else if (TestKeypress(Keys.Escape))
+            else if (TestKeypress(Keys.Back))
             {
                 Game1.bMainGame = false;
                 MySong.PlaySong(MySong.ListSong.Title);
@@ -377,15 +376,36 @@ namespace MyFirstApp
             {
                 return;
             }
+            spriteBatch.DrawString(Game1.gameFont, 
+                "\r\ngameOverDeLay" + _gameOverDeLay,
+                    new Vector2(GlobalSetting.GameWidth/2 - 100, GlobalSetting.GameHeight), Color.Red);
             //Ve ra anh nen
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
             //Game over
-            if (GlobalSetting.CurrentHealth == 0)
+            if (bGameOver)
             {
+                if (_gameOverDeLay > 4)
+                {
+                    MySong.Mute();
+                    bGameOver = false;
+                    _gameOverDeLay = 0;
+                    Game1.bMainGame = false;
+                    MySong.PlaySong(MySong.ListSong.Title);
+                    GlobalSetting.MapFlag = true;
+                }
+                else
+                {
+                    spriteBatch.DrawString(Game1.gameFont, "GAME OVER",
+                    new Vector2(GlobalSetting.GameWidth/2 - 50, GlobalSetting.GameHeight/2), Color.Red);
+                    
+                    return;
+                }
+            }
+            else if (GlobalSetting.CurrentHealth == 0)
+            {
+                bGameOver = true;
                 MySong.PlaySound(MySong.ListSound.GameOver);
-                Game1.bMainGame = false;
-                MySong.PlaySong(MySong.ListSong.Title);
-                GlobalSetting.MapFlag = true;
+                MySong.Mute();
             }
             int i, j;
 
@@ -417,17 +437,16 @@ namespace MyFirstApp
             Vector2 XCell = new Vector2(
                 GlobalSetting.XPos.Y / CellSize,
                 GlobalSetting.XPos.X / CellSize);
-
-            //if (_DelayTime++ < 900)
+            
             try
             {
                 if (bShowInstruction)
                     spriteBatch.DrawString(Game1.gameFont, "Press left or right to move"                    
                     + "\r\nPress Z to jump up, X to jump over and C to shoot"
-                    + "\r\nPress Esc to go back to main menu"
+                    + "\r\nPress Backspace to go back to main menu"                    
                     /*+ "\r\nCellPassed" + CellPassed
                     + "\r\n totalSeconds" + totalSeconds
-                    + "\r\n DelayStandStill" + oneSecondTimer
+                    + "\r\n DelayStandStill" + _soundDelay
                     + "\r\n MaxCellPassed" + GlobalSetting.GetMaxCellPassed()
                     + "\r\n XPos" + GlobalSetting.XPos.X + "   " + GlobalSetting.XPos.Y
                     + "\r\n XCell" + XCell.X + "   " + (XCell.Y + CellPassed)*/,

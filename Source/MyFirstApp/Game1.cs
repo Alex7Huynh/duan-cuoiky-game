@@ -31,7 +31,7 @@ namespace MyFirstApp
         private GameLoading gameLoading;
 
         //private List<VisibleGameEntity> _gameEntity;
-        //private List<Character> _character;
+        //private List<Protagonist> _character;
         //private List<Map> _map;
         private Map _map;
         //private CharacterManager characterManager;
@@ -82,14 +82,14 @@ namespace MyFirstApp
             GlobalSetting.characterManager.InitPrototypes(this.Content);
 
             //_nCharacter = 1;
-            //_character = new List<Character>();
+            //_character = new List<Protagonist>();
 
-            //_character.Add(new Character());
-            /*_character[0] = (Character)characterManager.CreateObject(5);
+            //_character.Add(new Protagonist());
+            /*_character[0] = (Protagonist)characterManager.CreateObject(5);
             _character[0].X = GlobalSetting.XPos.X;
             _character[0].Y = GlobalSetting.XPos.Y;*/
-            //GlobalSetting.Megaman = (Character)GlobalSetting.characterManager.CreateObject(5);
-            GlobalSetting.Megaman = new Character();
+            //GlobalSetting.Megaman = (Protagonist)GlobalSetting.characterManager.CreateObject(5);
+            GlobalSetting.Megaman = new Protagonist();
             GlobalSetting.Megaman.InitSprites(Content);
             GlobalSetting.Megaman.X = GlobalSetting.XPos.X;
             GlobalSetting.Megaman.Y = GlobalSetting.XPos.Y;
@@ -159,25 +159,25 @@ namespace MyFirstApp
                 //}
                 /*KeyboardState newKeyboardState = Keyboard.GetState();
                 if (newKeyboardState.IsKeyDown(Keys.NumPad1))
-                    _character[0] = (Character)characterManager.CreateObject(0);
+                    _character[0] = (Protagonist)characterManager.CreateObject(0);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad2))
-                    _character[0] = (Character)characterManager.CreateObject(1);
+                    _character[0] = (Protagonist)characterManager.CreateObject(1);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad3))
-                    _character[0] = (Character)characterManager.CreateObject(2);
+                    _character[0] = (Protagonist)characterManager.CreateObject(2);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad4))
-                    _character[0] = (Character)characterManager.CreateObject(3);
+                    _character[0] = (Protagonist)characterManager.CreateObject(3);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad5))
-                    _character[0] = (Character)characterManager.CreateObject(4);
+                    _character[0] = (Protagonist)characterManager.CreateObject(4);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad6))
-                    _character[0] = (Character)characterManager.CreateObject(5);
+                    _character[0] = (Protagonist)characterManager.CreateObject(5);
                 else if (newKeyboardState.IsKeyDown(Keys.NumPad7))
-                    _character[0] = (Character)characterManager.CreateObject(6);*/
+                    _character[0] = (Protagonist)characterManager.CreateObject(6);*/
 
                 _map.UpdateKeyboard(gameTime);
                 _map.Update(gameTime);
 
                 GlobalSetting.Megaman.Update(gameTime);
-                /*foreach (Character c in _character)
+                /*foreach (Protagonist c in _character)
                 {
                     c.Update(gameTime);
                 }*/
@@ -221,8 +221,8 @@ namespace MyFirstApp
                     GlobalSetting.MapFlag = false;
                 }
                 _map.Draw(gameTime, spriteBatch);
-                //Character
-                /*foreach (Character c in _character)
+                //Protagonist
+                /*foreach (Protagonist c in _character)
                 {
                     c.Draw(gameTime, spriteBatch);
                 }*/

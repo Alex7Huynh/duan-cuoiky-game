@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace MyFirstApp
 {
-    public class Character : VisibleGameEntity
+    public class Protagonist : VisibleGameEntity
     {
         #region 1 - Các thuộc tính
         enum State
@@ -104,13 +104,13 @@ namespace MyFirstApp
         #region 4 - Các phương thức xử lý
         public override VisibleGameEntity Clone()
         {
-            VisibleGameEntity newObject = new Character();
+            VisibleGameEntity newObject = new Protagonist();
             newObject._sprite = this._sprite;
             newObject._nsprite = this._nsprite;
             newObject.X = this.X;
             newObject.Y = this.Y;
-            ((Character)newObject).nDelay = this.nDelay;
-            ((Character)newObject).iDelay = 0;
+            ((Protagonist)newObject).nDelay = this.nDelay;
+            ((Protagonist)newObject).iDelay = 0;
 
             return newObject;
         }
