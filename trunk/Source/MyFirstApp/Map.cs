@@ -28,6 +28,7 @@ namespace MyFirstApp
         private float _soundDelay = 0;
         private float _mapDeLay = 0;
         private float _gameOverDeLay = 0;
+        private float _introductionDeLay = 0;
 
         private bool bShowInstruction;
         private bool bGameOver;
@@ -109,13 +110,15 @@ namespace MyFirstApp
         /// Xu ly khi dung cac vat tren duong di
         /// </summary>
         /// <param name="gameTime"></param>
-        public void UpdateKeyboard(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {            
-            //Delay one second - time count up
+            //Delay - time count up
             _soundDelay += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _mapDeLay += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if(bGameOver)
                 _gameOverDeLay += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(GlobalSetting.IntroductionFlag)
+                _introductionDeLay += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (GlobalSetting.CurrentHealth == 0)
                 return;
@@ -200,6 +203,8 @@ namespace MyFirstApp
                 Game1.bMainGame = false;
                 MySong.PlaySong(MySong.ListSong.Title);
                 GlobalSetting.MapFlag = true;
+                GlobalSetting.IntroductionFlag = false;
+                _introductionDeLay = 0;
             }
             //else if (newKeyboardState.IsKeyDown(Keys.F1))
             else if (TestKeypress(Keys.F1))
@@ -364,11 +369,6 @@ namespace MyFirstApp
             return false;
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            //for (int i = 0; i < _nsprite; ++i)
-            //    _sprite[i].Update(gameTime);
-        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //Chua nap duoc ban do thi khong ve
@@ -377,10 +377,31 @@ namespace MyFirstApp
                 return;
             }
             spriteBatch.DrawString(Game1.gameFont, 
-                "\r\ngameOverDeLay" + _gameOverDeLay,
-                    new Vector2(GlobalSetting.GameWidth/2 - 100, GlobalSetting.GameHeight), Color.Red);
+                "\r\ngameOverDeLay" + _gameOverDeLay, 
+                new Vector2(GlobalSetting.GameWidth/2 - 100, GlobalSetting.GameHeight), Color.Red);
             //Ve ra anh nen
             spriteBatch.Draw(_background, new Vector2(0, 0), Color.White);
+            //Intro
+            if (GlobalSetting.IntroductionFlag)
+            {
+                if (_introductionDeLay > 7)
+                {
+                    GlobalSetting.IntroductionFlag = false;
+                    _introductionDeLay = 0;
+                }
+                else
+                {
+                    spriteBatch.DrawString(Game1.gameFont,
+                        "20xx, Megaman is destroying the Maverisks"
+                        + "\r\n" + "Suddenly, he was fainted"                        
+                        + "\r\n" + "When he woke up, he has been in the world of Mario"
+                        + "\r\n" + "He needs to find out why he was send to this word"
+                        + "\r\n" + "and all put and end to this.",
+                        new Vector2(100, 100), Color.Red);
+                    return;
+                }
+            }
+            
             //Game over
             if (bGameOver)
             {
@@ -422,14 +443,14 @@ namespace MyFirstApp
                     else
                         continue;
 
-                    /*_sprite[0].Draw(gameTime, spriteBatch, Color.White,
+                    _sprite[0].Draw(gameTime, spriteBatch, Color.White,
                         new Vector2(j * CellSize, i * CellSize),
-                        new Rectangle(cellIndex * 24, 0, 24, 24));*/
-                    _sprite[0].Draw(gameTime, spriteBatch,
+                        new Rectangle(cellIndex * 24, 0, 24, 24));
+                    /*_sprite[0].Draw(gameTime, spriteBatch,
                         new Vector2(j * CellSize, i * CellSize),
                         new Rectangle(cellIndex * 24, 0, 24, 24),
                         Color.White, 0.0f, Vector2.Zero, (CellSize / 24),
-                        SpriteEffects.None, 0.0f);
+                        SpriteEffects.None, 0.0f);*/
                 }
 
             float totalSeconds = (float)gameTime.ElapsedRealTime.TotalSeconds;
