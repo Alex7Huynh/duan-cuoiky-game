@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace MyFirstApp
 {
@@ -41,6 +30,11 @@ namespace MyFirstApp
         #endregion
 
         #region 4 - Các phương thức xử lý
+        /// <summary>
+        /// Draw
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             int i;
@@ -48,6 +42,11 @@ namespace MyFirstApp
                 _sprite[i].Draw(gameTime, spriteBatch, Color.White, 
                     new Vector2(X,Y), new Rectangle(0,0,_sprite[i].Width, _sprite[i].Height));
         }
+
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
             int i;

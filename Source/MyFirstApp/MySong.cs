@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace MyFirstApp
 {
     public class MySong
     {
+        #region 1 - Các thuộc tính
         private static Song _mainTheme;
         private static SoundEffect _effect;
         private static Boolean _mute;
@@ -32,7 +26,12 @@ namespace MyFirstApp
             Damaged, Fire, GameOver, GetCoin, Jump, Land, Laser, 
             MonterAttacked, MonterDied, SelectMenu
         };
+        #endregion
 
+        #region 2 - Các đặc tính
+        #endregion
+
+        #region 3 - Các phương thức khởi tạo
         public static void Init(ContentManager content)
         {
             _mute = false;
@@ -65,21 +64,25 @@ namespace MyFirstApp
                 "SelectMenu"
             };
         }
+        #endregion
 
+        #region 4 - Các phương thức xử lý
+        /// <summary>
+        /// Play a song with ID in ListSong
+        /// </summary>
+        /// <param name="ID"></param>
         public static void PlaySong(ListSong ID)
-        {
-            //string path = @"Sound\mp3\";
-            //if (Game1.bMainGame)
-            //    path += lstSong[Game1.currentStage+1];
-            //else if(Game1.bLoadGame)
-            //    path += lstSong[1];
-            //else
-            //    path += lstSong[0];
+        {            
             _mainTheme = Content.Load<Song>(@"Sound\mp3\" +
                 lstSong[ID.GetHashCode()]);
-            //_mainTheme = Content.Load<Song>(path);
+            
             MediaPlayer.Play(_mainTheme);
         }
+
+        /// <summary>
+        /// Play a song with ID as int
+        /// </summary>
+        /// <param name="ID"></param>
         public static void PlaySong(int ID)
         {
             _mainTheme = Content.Load<Song>(@"Sound\mp3\" +
@@ -87,30 +90,42 @@ namespace MyFirstApp
             
             MediaPlayer.Play(_mainTheme);
         }
+
+        /// <summary>
+        /// Play a sound effect with ID in ListSound
+        /// </summary>
+        /// <param name="ID"></param>
         public static void PlaySound(ListSound ID)
         {
             _effect = Content.Load<SoundEffect>(@"Sound\wav\" +
                 lstSound[ID.GetHashCode()]);
             _effect.Play();
         }
+
+        /// <summary>
+        /// Mute or unmute
+        /// </summary>
         public static void Mute()
         {
             _mute = !_mute;
         }
+
+        /// <summary>
+        /// Resume if song has been stopped
+        /// Stop playing if chosen mute
+        /// </summary>
         public static void Resume()
         {
             if (_mute == false && MediaPlayer.State == MediaState.Stopped)
             {
                 MediaPlayer.Play(_mainTheme);
             }
-            if (_mute == true && MediaPlayer.State == MediaState.Playing)
-                MediaPlayer.Stop();
 
-            //if (Keyboard.GetState().IsKeyDown(Keys.X))
-            //    PlaySound(ListSound.Jump);
-            //if (Keyboard.GetState().IsKeyDown(Keys.C))
-            //    PlaySound(ListSound.Fire);
-            
+            if (_mute == true && MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
         }
+        #endregion
     }
 }

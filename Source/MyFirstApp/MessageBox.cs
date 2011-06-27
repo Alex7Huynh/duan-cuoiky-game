@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MyFirstApp
+﻿namespace MyFirstApp
 {
     public class MessageBox : Dialog
     {
