@@ -1,0 +1,1 @@
+Cái này dùng để làm dự án nho nhỏ đó mà. Chẳn có gì quan trọng. Nhưng phải thực sự hữu ít đối với game
